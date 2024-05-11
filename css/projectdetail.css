@@ -1,0 +1,15 @@
+.headtopic {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 5%;
+}
+
+.tb_detail {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.tb_detail td {
+    padding: 15px;
+    text-align: left;
+}

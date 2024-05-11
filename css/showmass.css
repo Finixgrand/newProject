@@ -1,0 +1,18 @@
+table.head_tb {
+  width: 65%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.main_tb {
+  width: 65%;
+  margin-top: 20px;
+  border: 1px solid;
+  border-color: rgb(10, 10, 10);
+  border-collapse: collapse;
+}
+
+.main_tb th,
+.main_tb td {
+  border: 1px solid;
+}
