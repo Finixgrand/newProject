@@ -32,7 +32,7 @@ $ma_id = $_GET['ma_id'];
     </tr>
     <tr>
       <td>เพศ</td>
-      <td><?php echo "$rs[ma_gender]"; ?></td>
+      <td><?php if ($rs['ma_gender'] == 0) echo "ชาย"; else echo "หญิง"; ?></td>
     </tr>
     <tr>
       <td>อายุ</td>
@@ -56,7 +56,7 @@ $ma_id = $_GET['ma_id'];
     <div align="center"> <!-- ปุ่มย้อนกลับ แก้ไข ลบ -->
     <button onclick="window.history.back();">กลับ</button> &nbsp;&nbsp;&nbsp;&nbsp; 
     <button name="btn_Edit">แก้ไข</button> &nbsp;&nbsp;&nbsp;&nbsp; 
-    <button name="btn_Delete">ลบ</button>
+    <button onclick="del()">ลบ</button>
     </div>
 
     <script>
@@ -67,6 +67,14 @@ $ma_id = $_GET['ma_id'];
         var ma_id = document.querySelector("input[name='ma_id']").value;
         document.location.href = "editMass.php?ma_id=" + ma_id;
     });
+
+    function del() {
+        var ma_id = document.querySelector("input[name='ma_id']").value;
+        var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
+        if(conf) {
+            document.location.href = "module/deletemass.php?ma_id=" + ma_id;
+        }
+    }
     </script>
 
     

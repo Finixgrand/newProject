@@ -1,0 +1,47 @@
+.header {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.search_tb {
+  width: 65%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.search_tb input {
+  width: 35%;
+  height: 30px;
+  border: 1px solid;
+  border-color: rgb(10, 10, 10);
+  border-radius: 5px;
+  padding-left: 5px;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.search_tb button {
+  width: 100px;
+  height: 30px;
+  border: 1px solid;
+  border-color: rgb(10, 10, 10);
+  border-radius: 5px;
+  background-color: rgb(10, 10, 10);
+  color: white;
+  cursor: pointer;
+}
+
+.main_tb {
+  width: 65%;
+  margin-top: 20px;
+  border: 1px solid;
+  border-color: rgb(10, 10, 10);
+  border-collapse: collapse;
+}
+
+.main_tb th,
+.main_tb td {
+  border: 1px solid;
+}
