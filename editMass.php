@@ -62,6 +62,8 @@ $rs = mysqli_fetch_array($result);
       <a href="javascript:history.back()" class="btn">ยกเลิก</a> &nbsp;&nbsp;&nbsp;&nbsp; <button>บันทึก</button>
     </div>
 
+  </form>
+
 </body>
 
 </html>

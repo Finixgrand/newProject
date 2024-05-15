@@ -36,7 +36,7 @@
   <tr>
     <td><?php echo "$rs[p_name]"; ?></td>
     <td align="center"><input type="hidden" name="p_id" value="<?php echo "$rs[p_id]"; ?>">
-    <button name="btn_detail">รายละเอียด</button></td></a>
+    <button name="btn_detail">รายละเอียด</button></td>
   </tr>
   <?php
     }

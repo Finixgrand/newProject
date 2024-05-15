@@ -43,15 +43,25 @@ $result = mysqli_query($conn, $sql)
             while ($rs = mysqli_fetch_array($result)) {
             ?>
             <tr>
-                <td><?php echo $rs['cus_id'] ?></td>
+                <td><?php echo $rs['cus_id'] ?> <input type="hidden" name="cus_id" value="<?php echo "$rs[cus_id]"; ?>"></td>
                 <td><?php echo $rs['name'] ?></td>
-                <td align="center"><button>รายละเอียด</button></td>
+                <td align="center"><button name="btn_detail">รายละเอียด</button></td>
             </tr>
             <?php
             }
             mysqli_close($conn);
             ?>
         </table>
+
+        <script>
+            var btn_details = document.getElementsByName("btn_detail");
+            btn_details.forEach(function(btn) {
+                btn.addEventListener("click", function() {
+                    var cus_id = btn.parentElement.parentElement.querySelector("td").innerText;
+                    document.location.href = "detailCus.php?cus_id=" + cus_id;
+                });
+            });
+        </script>
     </main>
 </body>
 
