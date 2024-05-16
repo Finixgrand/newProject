@@ -13,6 +13,7 @@ $rs = mysqli_fetch_array($result);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/detailcus.css">
 </head>
 
 <body>
@@ -20,47 +21,43 @@ $rs = mysqli_fetch_array($result);
     include 'component/admin_nav.php';
     ?>
 
-    <p>ข้อมูลผู้ใช้บริการ</p>
-
     <main>
-        <table>
-            <tr>
-                <td>รหัส</td>
-                <td><?php echo "$rs[cus_id]"; ?> <input type="hidden" name="cus_id" value="<?php echo $rs['cus_id']; ?>"></td>
-            </tr>
-            <tr>
-                <td>ชื่อ - นามสกุล</td>
-                <td><?php echo "$rs[name]"; ?></td>
-            </tr>
-            <tr>
-                <td>เพศ</td>
-                <td><?php if ($rs['gender']==0) echo "ชาย";
-                    else echo "หญิง"; ?></td>
-            </tr>
-            <tr>
-                <td>อายุ</td>
-                <td><?php echo "$rs[age]"; ?></td>
-            </tr>
-            <tr>
-                <td>เลขประจำตัวประชาชน</td>
-                <td><?php echo "$rs[IDcardnumber]"; ?></td>
-            </tr>
-            <tr>
-                <td>ที่อยู่</td>
-                <td><?php echo "$rs[address]"; ?></td>
-            </tr>
-            <tr>
-                <td>เบอร์โทรศัพท์</td>
-                <td><?php echo "$rs[tel]"; ?></td>
-            </tr>
-        </table>
+        <h2 class="mb-4">ข้อมูลผู้ใช้บริการ</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>รหัส</th>
+                        <th>ชื่อ - นามสกุล</th>
+                        <th>เพศ</th>
+                        <th>อายุ</th>
+                        <th>เลขประจำตัวประชาชน</th>
+                        <th>ที่อยู่</th>
+                        <th>เบอร์โทรศัพท์</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo "$rs[cus_id]"; ?> <input type="hidden" name="cus_id" value="<?php echo $rs['cus_id']; ?>"></td>
+                        <td><?php echo "$rs[name]"; ?></td>
+                        <td><?php if ($rs['gender'] == 0) echo "ชาย";
+                            else echo "หญิง"; ?></td>
+                        <td><?php echo "$rs[age]"; ?></td>
+                        <td><?php echo "$rs[IDcardnumber]"; ?></td>
+                        <td><?php echo "$rs[address]"; ?></td>
+                        <td><?php echo "$rs[tel]"; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4"> <!-- ปุ่มย้อนกลับ แก้ไข ลบ -->
+            <button onclick="window.history.back();" class="btn btn-secondary mr-2">กลับ</button>
+            <button name="btn_Edit" class="btn btn-primary mr-2">แก้ไข</button>
+            <button onclick="del()" class="btn btn-danger">ลบ</button>
+        </div>
 
         <br>
-        <div align="center"> <!-- ปุ่มย้อนกลับ แก้ไข ลบ -->
-            <button onclick="window.history.back();">กลับ</button> &nbsp;&nbsp;&nbsp;&nbsp;
-            <button name="btn_Edit">แก้ไข</button> &nbsp;&nbsp;&nbsp;&nbsp;
-            <button onclick="del()">ลบ</button>
-        </div>
 
         <script>
             var btn_Edit = document.getElementsByName("btn_Edit")[0];
@@ -79,8 +76,38 @@ $rs = mysqli_fetch_array($result);
                 }
             }
         </script>
-    </main>
 
+
+        <div class="container">
+            <h5>ประวัติการใช้บริการ</h5>
+            <div class="table-responsive-sm mt-3">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ลำดับที่</th>
+                            <th>วันที่ใช้บริการ</th>
+                            <th>ประเภทที่มาใช้บริการ</th>
+
+                            <th>ผู้นวด</th>
+                            <th>หมายเหตุ</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>12/12/2563</td>
+                            <td>นวดพุง</td>
+
+                            <td>มาสาย</td>
+                            <td>มาสวย</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

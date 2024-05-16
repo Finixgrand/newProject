@@ -1,15 +1,25 @@
-.headtopic {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 5%;
+.headtopic h4 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-
-.tb_detail {
-    margin-top: 20px;
-    margin-bottom: 20px;
+.table td,
+.table th {
+  vertical-align: middle;
 }
-
-.tb_detail td {
-    padding: 15px;
-    text-align: left;
+.btn-edit,
+.btn-delete {
+  width: 100px;
+}
+.table th {
+  background-color: #f2f2f2;
+}
+.booking-section {
+  margin-top: 30px;
+}
+.booking-section h5 {
+  margin-bottom: 20px;
+}
+.booking-section .btn {
+  margin-bottom: 15px;
 }
