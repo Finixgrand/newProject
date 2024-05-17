@@ -32,6 +32,22 @@
                     <td><input type="date" name="p_end"></td>
                 </tr>
                 <tr>
+                    <td>
+                        อาจารย์ผู้คุม
+                    </td>
+                    <td>
+                        <select name="t_id" id="t_id">
+                            <?php 
+                                $sql = "SELECT * FROM teacher";
+                                $result = mysqli_query($conn, $sql);
+                                while ($rs = mysqli_fetch_array($result)) {
+                                    echo "<option value='$rs[t_id]'>$rs[t_name]</option>";
+                                }
+                            ?>
+                            </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>ชั่วโมงสะสม</td>
                     <td><input type="text" name="max_hour"></td>
                 </tr>

@@ -4,11 +4,11 @@
     $p_start = $_POST['p_start'];
     $p_end = $_POST['p_end'];
     $max_hour = $_POST['max_hour'];
-    $teacher = $_POST['teacher'];
+    $t_id = $_POST['t_id'];
     $total_mass = $_POST['total_mass'];
 
-    $sql = "INSERT INTO program (p_name, p_start, p_end, max_hour, teacher, total_mass) 
-            VALUES ('$p_name', '$p_start', '$p_end', '$max_hour', '$teacher', '$total_mass')";
+    $sql = "INSERT INTO program (p_name, p_start, p_end, max_hour, t_id, total_mass) 
+            VALUES ('$p_name', '$p_start', '$p_end', '$max_hour', '$t_id', '$total_mass')";
 
     mysqli_query($conn, $sql)
         or die("Error in query: $sql " . mysqli_error($conn));

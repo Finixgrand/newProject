@@ -47,7 +47,7 @@ $rs = mysqli_fetch_array($result);
                         <td><?php echo $rs['p_start']; ?></td>
                         <td><?php echo $rs['p_end']; ?></td>
                         <td><?php echo $rs['max_hour']; ?></td>
-                        <td><?php echo $rs['teacher']; ?></td>
+                        <td><?php echo $rs['t_id']; ?></td>
                         <td><?php echo $rs['total_mass']; ?></td>
                         <td>
                             <button class="btn btn-warning btn-edit" name="btn_Edit">แก้ไข</button>
@@ -96,6 +96,7 @@ $rs = mysqli_fetch_array($result);
                     <tr>
                         <th>ลำดับที่</th>
                         <th>ชื่อ-นามสกุล</th>
+                        <th>ประเภทที่มาใช้บริการ</th>
                         <th>เวลาที่จอง</th>
                         <th>ผู้นวด</th>
                         <th>หมายเหตุ</th>
@@ -107,6 +108,7 @@ $rs = mysqli_fetch_array($result);
                     <tr>
                         <td>1</td>
                         <td>นาย สมชาย ใจดี</td>
+                        <td>นวดพุง</td>
                         <td>12.00-13.00</td>
                         <td>มาสาย</td>
                         <td>มาสวย</td>

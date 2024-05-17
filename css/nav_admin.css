@@ -1,0 +1,9 @@
+.mr-extra {
+    margin-right: 5rem; /* สำหรับหน้าจอที่มีความกว้างน้อยกว่า 992px */
+}
+
+@media (min-width: 992px) {
+    .mr-extra {
+        margin-right: 40rem; /* สำหรับหน้าจอที่มีความกว้าง 992px หรือมากกว่า */
+    }
+}

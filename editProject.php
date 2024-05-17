@@ -47,7 +47,20 @@
             </tr>
             <tr>
                 <td>อาจารย์ผู้คุม</td>
-                <td><input type="text" name="teacher" value="<?php echo "$rs[teacher]"; ?>"></td>
+                <td><select name="t_id" id="t_id">
+                    <?php 
+                        $sql2 = "SELECT * FROM teacher";
+                        $result2 = mysqli_query($conn, $sql2);
+                        while ($rs2 = mysqli_fetch_array($result2)) {
+                            echo "<option value=\'$rs[t_id]\'";
+                            if ($rs['t_id'] == $rs2['t_id']) {
+                                echo 'selected';
+                            }
+                            echo ">$rs2[t_name]";
+                            echo "</option>\n";
+                        }
+                    ?>
+                </select></td>
             </tr>
             <tr>
                 <td>ผู้นวดในโครงการ</td>
