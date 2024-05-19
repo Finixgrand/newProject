@@ -28,12 +28,6 @@
             <table align="center">
                 <tr>
                     <td class="form-group">
-                        <label for="name">ชื่อ - นามสกุล</label>
-                        <input type="text" name="name">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="form-group">
                         <label for="b_date">เลือกวันที่และเวลา</label>
                         <input type="datetime-local" name="b_date">
                     </td>

@@ -1,4 +1,5 @@
 <?php
+ob_start();
     include 'connect.php';
     
     // รับค่าจากฟอร์ม
@@ -28,7 +29,7 @@
                 header("Location: ../showProject.php");
                 exit();
             } elseif ($u_type == 2) {
-                header("Location: ../showBooking.php");
+                header("Location: ../cusHome.php");
                 exit();
             } else {
                 echo "<script language=\"javascript\">";

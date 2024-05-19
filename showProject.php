@@ -12,7 +12,7 @@ $result = mysqli_query($conn, $sql)
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="css/showproject.css?v=1">
+  <link rel="stylesheet" type="text/css" href="css/showproject.css?v=2">
 </head>
 
 <body>
@@ -29,7 +29,7 @@ $result = mysqli_query($conn, $sql)
     <div class="row">
       <div class="col-sd-12">
         <div class="d-flex justify-content-end">
-          <a href="addService.php" class="btn btn-primary">เพิ่มประเภทบริการ</a> &nbsp;&nbsp;&nbsp; <a href="addProject.php" class="btn btn-primary">เพิ่มโครงการ</a>
+          <a href="addProject.php" class="btn btn-primary">เพิ่มโครงการ</a>
         </div>
         <br>
         <table class="table table-striped">
@@ -47,7 +47,7 @@ $result = mysqli_query($conn, $sql)
               <td><?php echo "$rs[p_start]"; ?></td>
               <td><?php echo "$rs[p_end]"; ?></td>
               <td align="center"><input type="hidden" name="p_id" value="<?php echo "$rs[p_id]"; ?>">
-                <button name="btn_detail">รายละเอียด</button>
+                <button class="btn btn-success" name="btn_q">สร้างคิว</button> &nbsp; <button class="btn btn-warning" name="btn_detail">รายละเอียด</button>
               </td>
             </tr>
           <?php
@@ -67,6 +67,14 @@ $result = mysqli_query($conn, $sql)
       btn.addEventListener("click", function() {
         var p_id = btn.parentElement.querySelector("input[name='p_id']").value;
         document.location.href = "projectDetail.php?p_id=" + p_id;
+      });
+    });
+
+    var btnq = document.getElementsByName("btn_q");
+    btnq.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var p_id = btn.parentElement.querySelector("input[name='p_id']").value;
+        document.location.href = "show_Queue.php?p_id=" + p_id;
       });
     });
   </script>

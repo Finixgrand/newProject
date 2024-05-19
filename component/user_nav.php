@@ -6,20 +6,25 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-bs-parent=".container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" 
+        aria-expanded="false" aria-label="Toggle navigation" data-bs-parent=".container-fluid">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="./showCus.php">ข้อมูลผู้ใช้บริการ</a>
+                    <a class="nav-link" href="./cusHome.php">หน้าแรก</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./showbooking.php">การจองคิว</a>
+                    <a class="nav-link" href="./showBooking.php">การจองคิว</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./showEva.php">ประเมินคะแนนผู้นวด</a>
                 </li>
+                <li class="nav-item ml-auto">
+                    <a class="nav-link" href="module/logout.php">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

@@ -29,7 +29,7 @@
 
 <div class="buttons" align="center">
     
-<a href="Register.php">สมัครสมาชิก</a> <a href="forgot.php">ลืมรหัสผ่าน</a>
+<a href="Register.php">สมัครสมาชิก</a>
 </div>
 </body>
 
