@@ -2,7 +2,11 @@
 include 'module/connect.php';
 
 $p_id = $_GET['p_id'];
-$sql = "SELECT * FROM program WHERE p_id = $p_id";
+
+$sql = "SELECT program.*, teacher.t_name FROM program 
+        LEFT JOIN teacher ON program.t_id = teacher.t_id 
+        WHERE p_id = $p_id";
+
 $result = mysqli_query($conn, $sql) or die("Error in query: $sql " . mysqli_error($conn));
 $rs = mysqli_fetch_array($result);
 ?>
@@ -15,7 +19,7 @@ $rs = mysqli_fetch_array($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รายละเอียดโครงการ</title>
     <link rel="stylesheet" type="text/css" href="css/projectdetail.css?v=1">
-    
+
 </head>
 
 <body>
@@ -47,7 +51,7 @@ $rs = mysqli_fetch_array($result);
                         <td><?php echo $rs['p_start']; ?></td>
                         <td><?php echo $rs['p_end']; ?></td>
                         <td><?php echo $rs['max_hour']; ?></td>
-                        <td><?php echo $rs['t_id']; ?></td>
+                        <td><?php echo $rs['t_name']; ?></td>
                         <td><?php echo $rs['total_mass']; ?></td>
                         <td>
                             <button class="btn btn-warning btn-edit" name="btn_Edit">แก้ไข</button>
@@ -78,9 +82,9 @@ $rs = mysqli_fetch_array($result);
     </script>
 
 
-<?php 
-    
-?>
+    <?php
+
+    ?>
     <div class="container booking-section">
         <h5>รายการจอง</h5>
         <div class="text-end">
@@ -113,7 +117,7 @@ $rs = mysqli_fetch_array($result);
                         <td>มาสาย</td>
                         <td>มาสวย</td>
                         <td>ยืนยัน</td>
-                        <td><button class="btn btn-primary">ยืนยันการใช้บริการ</button></td>
+                        <td><button class="btn btn-primary">ยืนยันการใช้บริการ</button> <button class="btn btn-secondary" onclick="printPage(<?php echo $cus_id; ?>)">พิมพ์</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -123,6 +127,18 @@ $rs = mysqli_fetch_array($result);
     <div class="text-center my-4">
         <button class="btn btn-secondary" onclick="window.history.back();">กลับ</button>
     </div>
+
+    <script>
+        function printPage(cus_id) {
+            var win = window.open('print.php?cus_id=' + cus_id, '_blank');
+            win.focus();
+            win.onload = function() {
+                win.print();
+            }
+        }
+    </script>
+
+
 </body>
 
 </html>

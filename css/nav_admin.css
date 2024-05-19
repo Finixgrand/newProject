@@ -1,9 +1,53 @@
-.mr-extra {
-    margin-right: 5rem; /* สำหรับหน้าจอที่มีความกว้างน้อยกว่า 992px */
+.navbar {
+    background-color: #343a40; /* Change this to adjust the background color */
 }
 
-@media (min-width: 992px) {
+.navbar-brand {
+    color: #fff; /* Change this to adjust the color of the logo */
+    font-size: 1.5rem; /* Change this to adjust the size of the logo */
+}
+
+.nav-link {
+    color: #fff; /* Change this to adjust the color of the navigation links */
+    font-size: 1rem; /* Change this to adjust the size of the navigation links */
+}
+
+.nav-link:hover {
+    color: #ffc107; /* Change this to adjust the color of the navigation links on hover */
+}
+
+.navbar-toggler {
+    border-color: #fff; /* Change this to adjust the color of the navbar toggler */
+}
+
+.mr-extra {
+    margin-right: 30rem; /* This will be the default value */
+}
+
+/* For screens smaller than 1200px */
+@media (max-width: 1200px) {
     .mr-extra {
-        margin-right: 40rem; /* สำหรับหน้าจอที่มีความกว้าง 992px หรือมากกว่า */
+        margin-right: 40rem;
+    }
+}
+
+/* For screens smaller than 992px */
+@media (max-width: 992px) {
+    .mr-extra {
+        margin-right: 30rem;
+    }
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+    .mr-extra {
+        margin-right: 20rem;
+    }
+}
+
+/* For screens smaller than 576px */
+@media (max-width: 576px) {
+    .mr-extra {
+        margin-right: 10rem;
     }
 }

@@ -1,28 +1,32 @@
-<?php 
-    include 'module/connect.php';
-    
-    $p_id = $_GET['p_id'];
-    
-    
-    $sql = "SELECT * FROM program WHERE p_id = $p_id";
-    $result = mysqli_query($conn, $sql)
-        or die("Error in query: $sql " . mysqli_error($conn));
-    $rs = mysqli_fetch_array($result);
+<?php
+include 'module/connect.php';
+
+$p_id = $_GET['p_id'];
+
+
+$sql = "SELECT * FROM program WHERE p_id = $p_id";
+$result = mysqli_query($conn, $sql)
+    or die("Error in query: $sql " . mysqli_error($conn));
+$rs = mysqli_fetch_array($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/editproject.css">
 </head>
+
 <body>
     <?php
-        include 'component/admin_nav.php';
+    include 'component/admin_nav.php';
     ?>
 
-    <div class="headtopic"><h4>แก้ไขโครงการ</h4></div>
+    <div class="headtopic">
+        <h4>แก้ไขโครงการ</h4>
+    </div>
     <form action="module/editproject.php" method="post">
         <table align="center" class="tb_detail">
             <tr>
@@ -48,19 +52,20 @@
             <tr>
                 <td>อาจารย์ผู้คุม</td>
                 <td><select name="t_id" id="t_id">
-                    <?php 
+                        <?php
                         $sql2 = "SELECT * FROM teacher";
                         $result2 = mysqli_query($conn, $sql2);
                         while ($rs2 = mysqli_fetch_array($result2)) {
-                            echo "<option value=\'$rs[t_id]\'";
+                            echo "<option value=\"{$rs2['t_id']}\"";
                             if ($rs['t_id'] == $rs2['t_id']) {
-                                echo 'selected';
+                                echo ' selected';
                             }
-                            echo ">$rs2[t_name]";
+                            echo ">{$rs2['t_name']}";
                             echo "</option>\n";
                         }
-                    ?>
-                </select></td>
+                        ?>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>ผู้นวดในโครงการ</td>
@@ -73,4 +78,5 @@
         </div>
     </form>
 </body>
+
 </html>
