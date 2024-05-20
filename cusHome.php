@@ -43,7 +43,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                             <div class="card-body">
                                 <h5 class="card-title">จองคิวนวดแผนไทย</h5>
                                 <p class="card-text">ต้องการจองคิว</p>
-                                <a href="detailReserve.php" class="btn btn-primary">เข้าสู่หน้านี้</a>
+                                <a href="add_Booking.php" class="btn btn-primary">เข้าสู่หน้านี้</a>
                             </div>
                         </div>
                     </div>

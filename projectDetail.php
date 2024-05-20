@@ -9,6 +9,18 @@ $sql = "SELECT program.*, teacher.t_name FROM program
 
 $result = mysqli_query($conn, $sql) or die("Error in query: $sql " . mysqli_error($conn));
 $rs = mysqli_fetch_array($result);
+
+
+$sql2 = "SELECT * FROM customer, user, booking, service, queue_table 
+WHERE customer.u_name = user.u_name 
+AND booking.u_name = customer.u_name 
+AND booking.s_id = service.s_id 
+AND booking.qt_id = queue_table.qt_id 
+AND queue_table.p_id = $p_id;";
+
+$result2 = mysqli_query($conn, $sql2) or die("Error in query: $sql2 " . mysqli_error($conn));
+$rs2 = mysqli_fetch_array($result2);
+
 ?>
 
 <!DOCTYPE html>
@@ -95,6 +107,8 @@ $rs = mysqli_fetch_array($result);
             <input type="date" id="bookingDate" name="bookingDate" class="form-control d-inline w-auto">
         </div>
         <div class="table-responsive-sm mt-3">
+
+        
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -103,22 +117,30 @@ $rs = mysqli_fetch_array($result);
                         <th>ประเภทที่มาใช้บริการ</th>
                         <th>เวลาที่จอง</th>
                         <th>ผู้นวด</th>
-                        <th>หมายเหตุ</th>
+                        
                         <th>สถานะ</th>
                         <th>การจัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                    while ($rs2 = mysqli_fetch_array($result2)) {
+                        $cus_id = $rs2['cus_id'];
+                    ?>
                     <tr>
                         <td>1</td>
-                        <td>นาย สมชาย ใจดี</td>
-                        <td>นวดพุง</td>
-                        <td>12.00-13.00</td>
-                        <td>มาสาย</td>
-                        <td>มาสวย</td>
+                        <td><?php echo $rs2['name'] ?></td>
+                        <td><?php echo $rs2['s_name'] ?></td>
+                        <td><?php echo $rs2['b_time'] ?></td>
+                        <td><?php echo $rs['t_name'] ?></td>
+                        
                         <td>ยืนยัน</td>
                         <td><button class="btn btn-primary">ยืนยันการใช้บริการ</button> <button class="btn btn-secondary" onclick="printPage(<?php echo $cus_id; ?>)">พิมพ์</button></td>
                     </tr>
+                    <?php
+                        
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

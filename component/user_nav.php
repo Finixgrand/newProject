@@ -16,7 +16,7 @@
                     <a class="nav-link" href="./cusHome.php">หน้าแรก</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./showBooking.php">การจองคิว</a>
+                    <a class="nav-link" href="./add_Booking.php">การจองคิว</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./showEva.php">ประเมินคะแนนผู้นวด</a>

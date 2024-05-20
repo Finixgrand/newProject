@@ -47,7 +47,7 @@ $result = mysqli_query($conn, $sql)
               <td><?php echo "$rs[p_start]"; ?></td>
               <td><?php echo "$rs[p_end]"; ?></td>
               <td align="center"><input type="hidden" name="p_id" value="<?php echo "$rs[p_id]"; ?>">
-                <button class="btn btn-success" name="btn_q">สร้างคิว</button> &nbsp; <button class="btn btn-warning" name="btn_detail">รายละเอียด</button>
+                <button class="btn btn-success" name="btn_q">จัดการคิว</button> &nbsp; <button class="btn btn-warning" name="btn_detail">รายละเอียด</button>
               </td>
             </tr>
           <?php
