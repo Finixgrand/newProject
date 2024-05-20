@@ -15,7 +15,7 @@ mysqli_close($conn);
 
 echo "<script language=\"javascript\">";
 echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว');";
-echo "window.location = '../showbooking.php.php';";
+echo "window.location = '../showbooking.php';";
 echo "</script>";
 
 ?>
