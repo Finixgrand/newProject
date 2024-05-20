@@ -12,7 +12,7 @@
         <div class="navbar-collapse collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="./showCus.php">ข้อมูลผู้ใช้บริการ</a>
+                    <a class="nav-link" href="./showCusUser.php">ข้อมูลผู้ใช้บริการ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./showbooking.php">การจองคิว</a>
