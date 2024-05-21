@@ -30,6 +30,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./reportProject.php">รายงานโครงการ</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="module/logout.php">Logout</a>
                 </li>

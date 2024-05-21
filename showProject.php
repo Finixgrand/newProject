@@ -1,5 +1,8 @@
 <?php
-include 'module/connect.php';
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
+    include 'module/connect.php';
+
 
 $sql = "SELECT * FROM program";
 $result = mysqli_query($conn, $sql)
@@ -21,9 +24,10 @@ $result = mysqli_query($conn, $sql)
   ?>
 
   <div class="headtopic">
-    <h4>จัดการโครงการ</h4>
+    <h3>จัดการโครงการ</h3>
   </div>
 
+  <h5>สวัสดีคุณ  <?php echo $_SESSION["valid_uname"] ?></h5>
 
   <div class="container">
     <div class="row">
@@ -83,3 +87,9 @@ $result = mysqli_query($conn, $sql)
 </body>
 
 </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>

@@ -7,21 +7,23 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" 
-        aria-expanded="false" aria-label="Toggle navigation" data-bs-parent=".container-fluid">
+        aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto"> <!-- ใช้ me-auto เพื่อให้อันอื่นๆ อยู่ด้านซ้าย -->
                 <li class="nav-item">
                     <a class="nav-link" href="./cusHome.php">หน้าแรก</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./add_Booking.php">การจองคิว</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mr-extra">
                     <a class="nav-link" href="./showEva.php">ประเมินคะแนนผู้นวด</a>
                 </li>
-                <li class="nav-item ml-auto">
+            </ul>
+            <ul class="navbar-nav"> <!-- ใช้ navbar-nav ปกติเพื่อปุ่ม Logout อยู่ด้านขวา -->
+                <li class="nav-item">
                     <a class="nav-link" href="module/logout.php">Logout</a>
                 </li>
             </ul>

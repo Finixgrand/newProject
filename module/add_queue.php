@@ -1,6 +1,8 @@
 <?php
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
+    include 'connect.php';
 
-include 'connect.php';
 // รับข้อมูลจากฟอร์ม
     $p_id = $_POST['p_id'];
     $qt_date = $_POST['qt_date'];
@@ -74,3 +76,9 @@ mysqli_close($conn);
 </body>
 
 </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>

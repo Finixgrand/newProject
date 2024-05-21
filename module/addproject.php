@@ -1,5 +1,8 @@
 <?php
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'connect.php';
+    
     $p_name = $_POST['p_name'];
     $p_start = $_POST['p_start'];
     $p_end = $_POST['p_end'];
@@ -30,3 +33,9 @@
     
 </body>
 </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>

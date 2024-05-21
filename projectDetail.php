@@ -1,6 +1,7 @@
 <?php
 include 'module/connect.php';
-
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
 $p_id = $_GET['p_id'];
 
 $sql = "SELECT program.*, teacher.t_name FROM program 
@@ -20,7 +21,6 @@ AND queue_table.p_id = $p_id;";
 
 $result2 = mysqli_query($conn, $sql2) or die("Error in query: $sql2 " . mysqli_error($conn));
 $rs2 = mysqli_fetch_array($result2);
-
 ?>
 
 <!DOCTYPE html>
@@ -108,41 +108,44 @@ $rs2 = mysqli_fetch_array($result2);
         </div>
         <div class="table-responsive-sm mt-3">
 
-        
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ลำดับที่</th>
-                        <th>ชื่อ-นามสกุล</th>
-                        <th>ประเภทที่มาใช้บริการ</th>
-                        <th>เวลาที่จอง</th>
-                        <th>ผู้นวด</th>
-                        
-                        <th>สถานะ</th>
-                        <th>การจัดการ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    while ($rs2 = mysqli_fetch_array($result2)) {
-                        $cus_id = $rs2['cus_id'];
-                    ?>
-                    <tr>
-                        <td>1</td>
-                        <td><?php echo $rs2['name'] ?></td>
-                        <td><?php echo $rs2['s_name'] ?></td>
-                        <td><?php echo $rs2['b_time'] ?></td>
-                        <td><?php echo $rs['t_name'] ?></td>
-                        
-                        <td>ยืนยัน</td>
-                        <td><button class="btn btn-primary">ยืนยันการใช้บริการ</button> <button class="btn btn-secondary" onclick="printPage(<?php echo $cus_id; ?>)">พิมพ์</button></td>
-                    </tr>
-                    <?php
-                        
-                    }
-                    ?>
-                </tbody>
-            </table>
+            <form action="print.php" method="post">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ลำดับที่</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>อายุ</th>
+                            <th>ประเภทที่มาใช้บริการ</th>
+                            <th>เวลาที่จอง</th>
+                            <th>การจัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 1;
+                        while ($rs2 = mysqli_fetch_array($result2)) {
+                            $cus_id = $rs2['cus_id'];
+                        ?>
+                            <tr>
+                                <td><?php echo $i ?> </td>
+                                <td><?php echo $rs2['name'] ?> <input type="hidden" name="name" value="<?php echo $rs2['name']; ?>"> <input type="hidden" name="p_id" value="<?php echo $rs2['p_id']; ?>"> </td>
+                                <td><?php echo $rs2['age'] ?> <input type="hidden" name="age" value="<?php echo $rs2['age']; ?>"> <input type="hidden" name="cus_id" value="<?php echo $rs2['cus_id']; ?>"> </td>
+                                <td><?php echo $rs2['s_name'] ?> <input type="hidden" name="s_name" value="<?php echo $rs2['s_name']; ?>"> </td>
+                                <td><?php echo $rs2['b_time'] ?> <input type="hidden" name="b_time" value="<?php echo $rs2['b_time']; ?>"> </td>
+                                <td>
+                                    <input type="hidden" name="address" value="<?php echo $rs2['address']; ?>">
+                                    <input type="hidden" name="tel" value="<?php echo $rs2['tel']; ?>">
+                                    <input type="hidden" name="gender" value="<?php echo $rs2['gender']; ?>">
+                                    <button type="submit">พิมพ์</button>
+                                </td>
+                            </tr>
+                        <?php
+                            $i++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </form>
         </div>
     </div>
 
@@ -164,3 +167,9 @@ $rs2 = mysqli_fetch_array($result2);
 </body>
 
 </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>

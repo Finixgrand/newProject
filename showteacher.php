@@ -1,5 +1,8 @@
 <?php
-include "module/connect.php";
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
+    include 'module/connect.php';
+
 
 $sql = "SELECT * FROM teacher";
 $result = mysqli_query($conn, $sql)
@@ -22,12 +25,10 @@ $result = mysqli_query($conn, $sql)
 
     <main>
 
-        <div class="table-responsive">
-            <a href="addTeacher.php" class="btn btn-primary">เพิ่มอาจารย์</a>
-        </div>
-        <br>
-
-        <table class="table">
+    <div class="table-responsive">
+        <div class="container">
+                <a href="addTeacher.php" class="btn btn-primary mb-3">เพิ่มอาจารย์</a>
+                <table class="table table-striped">
             <tr>
                 <th>
                     ลำดับที่
@@ -71,8 +72,15 @@ $result = mysqli_query($conn, $sql)
             mysqli_close($conn);
             ?>
         </table>
-
+    </div>
+    </div>
     </main>
 </body>
 
 </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>

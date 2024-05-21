@@ -1,5 +1,8 @@
 <?php
-include "module/connect.php";
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
+    include 'module/connect.php';
+
 
 $p_id = $_GET['p_id'];
 
@@ -114,3 +117,9 @@ $rs2 = mysqli_fetch_assoc($result2);
 </body>
 
 </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>
