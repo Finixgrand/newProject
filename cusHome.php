@@ -52,8 +52,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">ประวัติการใช้บริการ</h5>
-                                <p class="card-text">ข้อมูลผู้ใช้บริการ</p>
-                                <a href="detailPayment.php" class="btn btn-primary">เข้าสู่หน้านี้</a>
+                                <p class="card-text">การใช้บริการที่ผ่านมาทั้งหมด</p>
+                                <a href="cus_History.php" class="btn btn-primary">เข้าสู่หน้านี้</a>
                             </div>
                         </div>
                     </div>

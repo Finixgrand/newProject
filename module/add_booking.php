@@ -10,6 +10,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $u_name = $_SESSION['valid_uname'];
 
     $sql = "INSERT INTO booking (b_date, b_time, qt_id, s_id, u_name) VALUES ('$b_date', '$b_time', '$qt_id', '$s_id', '$u_name')";
+
+    if ()
     $result = mysqli_query($conn, $sql);
 
     if ($result) {

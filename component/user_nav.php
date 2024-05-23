@@ -15,11 +15,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./cusHome.php">หน้าแรก</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./add_Booking.php">การจองคิว</a>
-                </li>
                 <li class="nav-item mr-extra">
-                    <a class="nav-link" href="./showEva.php">ประเมินคะแนนผู้นวด</a>
+                    <a class="nav-link" href="./add_Booking.php">การจองคิว</a>
                 </li>
             </ul>
             <ul class="navbar-nav"> <!-- ใช้ navbar-nav ปกติเพื่อปุ่ม Logout อยู่ด้านขวา -->

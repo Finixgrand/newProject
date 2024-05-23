@@ -3,27 +3,37 @@ require('fpdf/fpdf.php');
 
 include "module/connect.php";
 
-$p_id = isset($_POST['p_id']) ? $_POST['p_id'] : 0;
-$cus_id = isset($_POST['cus_id']) ? $_POST['cus_id'] : 0;
-$name = isset($_POST['name']) ? $_POST['name'] : 'ไม่มีข้อมูล';
-$age = isset($_POST['age']) ? $_POST['age'] : 'ไม่มีข้อมูล';
-$gender = isset($_POST['gender']) ? $_POST['gender'] :  0;
+$cus_id = isset($_GET['cus_id']) ? $_GET['cus_id'] : 0;
 
-if ($gender == 0) {
-    $gender = 'ชาย';
-} else {
-    $gender = 'หญิง';
-}
+if ($cus_id > 0) {
+    // Query เพื่อดึงข้อมูลของลูกค้าที่ต้องการพิมพ์
+    $sql = "SELECT * FROM customer WHERE cus_id = $cus_id";
+    $result = mysqli_query($conn, $sql);
 
-$s_name = isset($_POST['s_name']) ? $_POST['s_name'] : 'ไม่มีข้อมูล';
-$b_time = isset($_POST['b_time']) ? $_POST['b_time'] : 'ไม่มีข้อมูล';
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
 
-$adress = isset($_POST['address']) ? $_POST['address'] : 'ไม่มีข้อมูล';
-$tel = isset($_POST['tel']) ? $_POST['tel'] : 'ไม่มีข้อมูล';
+        // ดึงข้อมูลที่ต้องการพิมพ์
+        $name = $row['name'];
+        $age = $row['age'];
+        $gender = $row['gender'];
+        $s_name = isset($row['s_name']) ? $row['s_name'] : 'ไม่มีข้อมูล';
+        $b_time = isset($row['b_time']) ? $row['b_time'] : 'ไม่มีข้อมูล';
+        $address = isset($row['address']) ? $row['address'] : 'ไม่มีข้อมูล';
+        $tel = isset($row['tel']) ? $row['tel'] : 'ไม่มีข้อมูล';
 
 
+        if ($gender == '0') 
+        {
+            $gender = 'ชาย';
+        } 
+        else 
+        {
+            $gender = 'หญิง';
+        }
 
 $pdf = new FPDF('P', 'mm', 'A4');
+
 
 $pdf->Addfont('THSarabun', '', 'THSarabun.php');
 $pdf->AddFont('THSarabun', 'B', 'THSarabun Bold.php');
@@ -45,7 +55,7 @@ $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'เพศ   ' . $gender), 0, 0, 'L
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'อาชีพ _______________'), 0, 1, 'L');
 
 $pdf->SetFont('THSarabun', '', 16);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ที่อยู่ :     ' . $adress ), 0, 1, 'L');
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ที่อยู่ :     ' . $address ), 0, 1, 'L');
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'เบอร์โทร :     ' . $tel), 0, 1, 'L');
@@ -199,3 +209,10 @@ $pdf->SetX($pdf->GetX() + 56);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', '(____________________________)'), 0, 1, 'L');
 
 $pdf->Output();
+
+} else {
+    echo 'ไม่พบข้อมูลลูกค้า';
+}
+} else {
+echo 'ไม่พบรหัสลูกค้าที่ต้องการพิมพ์';
+}
