@@ -17,7 +17,7 @@
     </table>
 </div>
     <div align="center">
-   <h1><a href="frm_login.php">เข้าสู่เว็บไซต์</a></h1>
+   <h1><a href="home.php">เข้าสู่เว็บไซต์</a></h1>
 </div>
 </body>
 </html>
