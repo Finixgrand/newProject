@@ -19,15 +19,15 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             <table align="center">
                 <tr>
                     <td>ชื่อ - นามสกุล</td>
-                    <td><input type="text" name="t_name"></td>
+                    <td><input type="text" name="t_name" required></td>
                 </tr>
                 <tr>
                     <td>ที่อยู่</td>
-                    <td><input type="text" name="t_address"></td>
+                    <td><input type="text" name="t_address" required></td>
                 </tr>
                 <tr>
                     <td>เบอร์โทรศัพท์</td>
-                    <td><input type="text" name="t_tel"></td>
+                    <td><input type="text" name="t_tel" required></td>
                 </tr>
             </table>
             <div class="text-center mt-4">

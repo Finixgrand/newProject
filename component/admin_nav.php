@@ -27,9 +27,6 @@
                 <li class="nav-item mr-extra">
                     <a class="nav-link" href="./showTeacher.php">ข้อมูลอาจารย์</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./reportProject.php">รายงานโครงการ</a>
-                </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">

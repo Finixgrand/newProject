@@ -73,30 +73,30 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="form-group row">
                     <label for="IDcardnumber" class="col-sm-2 col-form-label">เลขประจำตัวประชาชน</label>
                     <div class="col-sm-10">
-                        <input type="text" name="IDcardnumber" class="form-control">
+                        <input type="text" name="IDcardnumber" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="name" class="col-sm-2 col-form-label">ชื่อ - นามสกุล</label>
                     <div class="col-sm-10">
-                        <input type="text" name="name" class="form-control">
+                        <input type="text" name="name" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="age" class="col-sm-2 col-form-label">อายุ</label>
                     <div class="col-sm-10">
-                        <input type="text" name="age" class="form-control">
+                        <input type="text" name="age" class="form-control" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="gender" class="col-sm-2 col-form-label">เพศ</label>
                     <div class="col-sm-10 d-flex align-items-center">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="male" name="gender" value="0">
+                            <input class="form-check-input" type="radio" id="male" name="gender" value="0" required>
                             <label class="form-check-label" for="male">ชาย</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="female" name="gender" value="1">
+                            <input class="form-check-input" type="radio" id="female" name="gender" value="1" required>
                             <label class="form-check-label" for="female">หญิง</label>
                         </div>
                     </div>

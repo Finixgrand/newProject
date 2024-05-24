@@ -50,9 +50,7 @@ ORDER BY booking.b_date ASC";
                             <th>ชื่อโครงการ</th>
                             <th>วันที่เริ่ม</th>
                             <th>วันที่สิ้นสุด</th>
-                            <th>ชั่วโมงสะสม</th>
                             <th>อาจารย์ผู้คุม</th>
-                            <th>ผู้นวดในโครงการ</th>
                             <th>จัดการ</th>
                         </tr>
                     </thead>
@@ -62,9 +60,7 @@ ORDER BY booking.b_date ASC";
                             <td><?php echo $rs['p_name']; ?></td>
                             <td><?php echo $rs['p_start']; ?></td>
                             <td><?php echo $rs['p_end']; ?></td>
-                            <td><?php echo $rs['max_hour']; ?></td>
                             <td><?php echo $rs['t_name']; ?></td>
-                            <td><?php echo $rs['total_mass']; ?></td>
                             <td>
                                 <button class="btn btn-warning btn-edit" name="btn_Edit">แก้ไข</button>
                                 <button class="btn btn-danger btn-delete" onclick="del()">ลบ</button>

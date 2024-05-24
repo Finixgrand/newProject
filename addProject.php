@@ -23,15 +23,15 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </tr>
                 <tr>
                     <td>ชื่อโครงการ</td>
-                    <td><input type="text" name="p_name"></td>
+                    <td><input type="text" name="p_name" required></td>
                 </tr>
                 <tr>
                     <td>วันที่เริ่ม</td>
-                    <td><input type="date" name="p_start"></td>
+                    <td><input type="date" name="p_start" required></td>
                 </tr>
                 <tr>
                     <td>วันที่สิ้นสุด</td>
-                    <td><input type="date" name="p_end"></td>
+                    <td><input type="date" name="p_end" required></td>
                 </tr>
                 <tr>
                     <td>
@@ -49,18 +49,12 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                             </select>
                     </td>
                 </tr>
-                <tr>
-                    <td>ชั่วโมงสะสม</td>
-                    <td><input type="text" name="max_hour"></td>
-                </tr>
+                
                 <tr>
                     <td>อาจารย์ผู้คุม</td>
-                    <td><input type="text" name="teacher"></td>
+                    <td><input type="text" name="teacher" required></td>
                 </tr>
-                <tr>
-                    <td>จำนวนผู้นวดในโครงการ</td>
-                    <td><input type="text" name="total_mass"></td>
-                </tr>
+                
                 <tr>
                     <td colspan="2" align="center"><input type="submit" value="เพิ่ม"></td>
                 </tr>
