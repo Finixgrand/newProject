@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'module/connect.php';
 ?>
