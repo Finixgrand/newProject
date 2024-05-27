@@ -52,19 +52,23 @@ $result = mysqli_query($conn, $sql)
                 <tr>
                     <td>
                         <?php echo $rs['t_id'] ?>
+                        <input type="hidden" name="t_id" value="<?php echo $rs['t_id'] ?>">
                     </td>
                     <td>
                         <?php echo "$rs[t_name]"; ?>
+                        <input type="hidden" name="t_name" value="<?php echo $rs['t_name'] ?>">
                     </td>
                     <td>
                         <?php echo "$rs[t_address]"; ?>
+                        <input type="hidden" name="t_address" value="<?php echo $rs['t_address'] ?>">
                     </td>
                     <td>
                         <?php echo "$rs[t_tel]"; ?>
+                        <input type="hidden" name="t_tel" value="<?php echo $rs['t_tel'] ?>">
                     </td>
                     <td>
-                        <button class="btn btn-warning">แก้ไข</button>
-                        <button class="btn btn-danger">ลบ</button>
+                    <button class="btn btn-warning btn-edit" name="btn_edit" data-id="<?php echo $rs['t_id']; ?>">แก้ไข</button>
+                        <button class="btn btn-danger btn-delete" data-id="<?php echo $rs['t_id']; ?>">ลบ</button>
                     </td>
                 </tr>
             <?php
@@ -75,6 +79,30 @@ $result = mysqli_query($conn, $sql)
     </div>
     </div>
     </main>
+
+    <script>
+        // ปุ่มแก้ไข ส่ง t_id เพื่อไปหน้า edit_teacher.php
+        document.querySelectorAll('.btn-edit').forEach(function(btn) {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault();
+                var t_id = this.getAttribute('data-id');
+                document.location.href = "edit_Teacher.php?t_id=" + t_id;
+            });
+        });
+
+        // ปุ่มลบ ส่ง t_id เพื่อไปหน้า delete_teacher.php
+        document.querySelectorAll('.btn-delete').forEach(function(btn) {
+            btn.addEventListener('click', function(event) {
+                event.preventDefault();
+                var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
+                if (conf) {
+                    var t_id = this.getAttribute('data-id');
+                    document.location.href = "module/delete_teacher.php?t_id=" + t_id;
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

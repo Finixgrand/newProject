@@ -3,18 +3,20 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'module/connect.php';
 
-    $cus_id = $_GET['cus_id'];
+    $u_name = $_GET['u_name'];
     
-    $sql = "SELECT * FROM customer WHERE cus_id = $_GET[cus_id]";
+    $sql = "SELECT * FROM customer WHERE u_name = '$u_name'";
     $result = mysqli_query($conn, $sql)
         or die("Error in query: $sql " . mysqli_error($conn));
-   
 
-        $sql2 = "SELECT booking.*, service.s_name FROM booking
-                 JOIN service ON booking.s_id = service.s_id
-                 WHERE booking.cus_id = $_GET[cus_id]";
+    $rs = mysqli_fetch_array($result);
+    $cus_id = $rs['cus_id']; // Fetch the cus_id
 
-        $result2 = mysqli_query($conn, $sql2) 
+    $sql2 = "SELECT booking.*, service.s_name FROM booking
+             JOIN service ON booking.s_id = service.s_id
+             WHERE booking.u_name = '$u_name'";
+
+    $result2 = mysqli_query($conn, $sql2) 
         or die("Error in query: $sql2 " . mysqli_error($conn));
 ?>
         <!DOCTYPE html>
@@ -38,7 +40,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th>รหัส</th>
                                 <th>ชื่อผู้ใช้บริการ</th>
                                 <th>ชื่อ - นามสกุล</th>
                                 <th>เพศ</th>
@@ -50,10 +51,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         </thead>
                         <tbody>
                             <?php
-                            while ($rs = mysqli_fetch_array($result)) {
+                                // Using $rs fetched from previous query
                             ?>
                                 <tr>
-                                    <td><?php echo $rs['cus_id']; ?></td>
                                     <td><?php echo $rs['u_name'] ? $rs['u_name'] : 'Walkin'; ?></td>
                                     <td><?php echo $rs['name']; ?></td>
                                     <td><?php echo $rs['gender'] == 0 ? 'ชาย' : 'หญิง'; ?></td>
@@ -63,7 +63,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                     <td><?php echo $rs['tel']; ?></td>
                                 </tr>
                             <?php
-                            }
                             ?>
                         </tbody>
                     </table>
@@ -71,29 +70,26 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
                 <div class="text-center mt-4">
                     <button onclick="window.history.back();" class="btn btn-secondary mr-2">กลับ</button>
-                    <button name="btn_Edit" class="btn btn-primary mr-2">แก้ไข</button>
-                    <button onclick="del()" class="btn btn-danger">ลบ</button>
+                    <button id="btn_Edit" class="btn btn-primary mr-2">แก้ไข</button>
+                    <button onclick="del(<?php echo $cus_id; ?>)" class="btn btn-danger">ลบ</button>
                 </div>
 
                 <br>
 
                 <script>
-    var btn_Edit = document.getElementsByName("btn_Edit");
-    btn_Edit.forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        var cus_id = "<?php echo $cus_id; ?>";
-        document.location.href = "editCus.php?cus_id=" + cus_id;
-      });
-    });
+                    var btn_Edit = document.getElementById("btn_Edit");
+                    btn_Edit.addEventListener("click", function() {
+                        var cus_id = "<?php echo $cus_id; ?>";
+                        document.location.href = "editCus.php?cus_id=" + cus_id;
+                    });
 
-   function del() {
-        var p_id = "<?php echo $cus_id; ?>";
-        var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
-        if (conf) {
-            document.location.href = "module/deletecus.php?cus_id=" + p_id;
-        }
-    }
-</script>
+                    function del(cus_id) {
+                        var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
+                        if (conf) {
+                            document.location.href = "module/deletecus.php?cus_id=" + cus_id;
+                        }
+                    }
+                </script>
 
                 <div class="container">
                     <h5>ประวัติการใช้บริการ</h5>

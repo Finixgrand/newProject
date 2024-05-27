@@ -32,6 +32,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </tr>
             </table>
             <div class="text-center mt-4">
+            <a href="javascript:history.back()" class="btn btn-secondary">ย้อนกลับ</a>
                 <button type="submit" class="btn btn-primary">บันทึก</button>
             </div>
         </form>

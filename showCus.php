@@ -40,33 +40,34 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             </table>
 
             <table align="center" class="main_tb">
-            <th>เลขที่</th>
-            <th>ชื่อ - นามสกุล</th>
-            <th>&nbsp;</th>
-            <?php
-            while ($rs = mysqli_fetch_array($result)) {
-            ?>
-            <tr>
-                <td><?php echo $rs['cus_id'] ?> <input type="hidden" name="cus_id" value="<?php echo "$rs[cus_id]"; ?>"></td>
-                <td><?php echo $rs['name'] ?></td>
-                <td align="center"><button name="btn_detail">รายละเอียด</button></td>
-            </tr>
-            <?php
-            }
-            mysqli_close($conn);
-            ?>
-            
-        </table>
+                <th>User</th>
+                <th>ชื่อ - นามสกุล</th>
+                <th>&nbsp;</th>
+                <?php
+                while ($rs = mysqli_fetch_array($result)) {
+                ?>
+                    <tr>
+                        <td><?php echo $rs['u_name'] ?> <input type="hidden" name="cus_id" value="<?php echo "$rs[cus_id]"; ?>"></td>
+                        <td><?php echo $rs['name'] ?> <input type="hidden" name="u_name" value="<?php echo "$rs[u_name]"; ?>"></td> 
+                        <td align="center"><button name="btn_detail">รายละเอียด</button></td>
+                    </tr>
+                <?php
+                }
+                mysqli_close($conn);
+                ?>
 
-            <script>            
-                var btn_details = document.getElementsByName("btn_detail");
-                btn_details.forEach(function(btn) {
-                    btn.addEventListener("click", function() {
-                        var cus_id = btn.parentElement.parentElement.querySelector("td").innerText;
-                        document.location.href = "detailCus.php?cus_id=" + cus_id;
-                    });
-                });
-            </script>
+            </table>
+
+            <script>
+    var btn_details = document.getElementsByName("btn_detail");
+    btn_details.forEach(function(btn) {
+        btn.addEventListener("click", function() {
+            var cus_id = btn.parentElement.parentElement.querySelector("td").innerText;
+            var u_name = btn.parentElement.parentElement.querySelector("td:nth-child(2)").querySelector("input[name='u_name']").value;
+            document.location.href = "detailCus.php?u_name=" + u_name;
+        });
+    });
+</script> 
         </main>
     </body>
 

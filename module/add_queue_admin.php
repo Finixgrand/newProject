@@ -15,20 +15,31 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $gender = $_POST['gender'];
     $address = $_POST['address'];
     $tel = $_POST['tel'];
+    $u_name = $_POST['u_name'];
+    $u_pass = $_POST['u_pass'];
 
     // INSERT customer
-    $sql_customer = "INSERT INTO customer (name, IDcardnumber, age, gender, address, tel) 
-    VALUES ('$name', '$IDcardnumber', '$age', '$gender', '$address', '$tel')";
+    $sql_customer = "INSERT INTO customer (name, IDcardnumber, age, gender, address, tel, u_name) 
+    VALUES ('$name', '$IDcardnumber', '$age', '$gender', '$address', '$tel', '$u_name')";
 
 
     if (mysqli_query($conn, $sql_customer)) {
         // INSERT booking
         $cus_id = mysqli_insert_id($conn);
 
-        $sql_booking = "INSERT INTO booking (b_time, b_date, qt_id, s_id, cus_id) 
-    VALUES ('$b_time', '$b_date', '$qt_id', '$s_id', '$cus_id')";
+
+        $sql_booking = "INSERT INTO booking (b_time, b_date, qt_id, s_id, cus_id, u_name) 
+    VALUES ('$b_time', '$b_date', '$qt_id', '$s_id', '$cus_id', '$u_name')";
+
+        $sql_user = "INSERT INTO user (u_name, u_pass, u_type) VALUES ('$u_name', '$u_pass', 2)";
 
         if (mysqli_query($conn, $sql_booking)) {
+            echo "<script language=\"javascript\">";
+            echo "alert('บันทึกข้อมูลลูกค้าและตารางคิวเรียบร้อยแล้ว');";
+            echo "window.location = '../projectDetail.php?p_id=" . $p_id . "';";
+            echo "</script>";
+
+            mysqli_query($conn, $sql_user);
             echo "<script language=\"javascript\">";
             echo "alert('บันทึกข้อมูลลูกค้าและตารางคิวเรียบร้อยแล้ว');";
             echo "window.location = '../projectDetail.php?p_id=" . $p_id . "';";

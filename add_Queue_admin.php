@@ -71,6 +71,18 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="u_name" class="col-sm-2 col-form-label">Username</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="u_name" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="u_pass" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="u_pass" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="IDcardnumber" class="col-sm-2 col-form-label">เลขประจำตัวประชาชน</label>
                     <div class="col-sm-10">
                         <input type="text" name="IDcardnumber" class="form-control" required>

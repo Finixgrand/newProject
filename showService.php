@@ -74,21 +74,22 @@ $result = mysqli_query($conn, $sql)
             btn.addEventListener('click', function(event) {
                 event.preventDefault();
                 var s_id = this.getAttribute('data-id');
-                document.location.href = "editService.php?s_id=" + s_id;
+                document.location.href = "edit_Service.php?s_id=" + s_id;
             });
         });
 
         // ปุ่มลบ ส่ง s_id เพื่อไปหน้า deleteservice.php
         document.querySelectorAll('.btn-delete').forEach(function(btn) {
-            btn.addEventListener('click', function(event) {
-                event.preventDefault();
-                var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
-                if (conf) {
-                    var s_id = this.getAttribute('data-id');
-                    document.location.href = "module/deleteservice.php?s_id=" + s_id;
-                }
-            });
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
+            if (conf) {
+                var s_id = this.getAttribute('data-id');
+                // Change the URL to the correct path
+                document.location.href = "deleteservice.php?s_id=" + s_id;
+            }
         });
+    });
     </script>
 </body>
 

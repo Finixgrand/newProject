@@ -9,7 +9,16 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $s_id = $_POST['s_id'];
     $u_name = $_SESSION['valid_uname'];
 
-    $sql = "INSERT INTO booking (b_date, b_time, qt_id, s_id, u_name) VALUES ('$b_date', '$b_time', '$qt_id', '$s_id', '$u_name')";
+    $sql_cus = "SELECT * FROM customer WHERE u_name = '$u_name'"; 
+    $result_cus = mysqli_query($conn, $sql_cus); 
+
+    if (mysqli_num_rows($result_cus) > 0) {
+        $row = mysqli_fetch_assoc($result_cus);
+        $cus_id = $row['cus_id'];
+    }
+
+    $sql = "INSERT INTO booking (b_date, b_time, qt_id, s_id, u_name, cus_id) 
+    VALUES ('$b_date', '$b_time', '$qt_id', '$s_id', '$u_name', $cus_id)";
 
     $result = mysqli_query($conn, $sql);
 
