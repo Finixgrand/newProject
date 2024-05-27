@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'module/connect.php';
 
-    $sql = "SELECT GROUP_CONCAT(cus_id) as cus_ids, name, COUNT(*) as count FROM customer GROUP BY name";
+    $sql = "SELECT * FROM customer";
     $result = mysqli_query($conn, $sql)
         or die("Error in query: $sql " . mysqli_error($conn));
 ?>
@@ -40,28 +40,30 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             </table>
 
             <table align="center" class="main_tb">
-                <th>เลขที่</th>
-                <th>ชื่อ - นามสกุล</th>
-                <th>&nbsp;</th>
-                <?php
-                while ($rs = mysqli_fetch_array($result)) {
-                ?>
-                    <tr>
-                        <td><?php echo $rs['cus_ids'] ?> <input type="hidden" name="cus_ids" value="<?php echo "$rs[cus_ids]"; ?>"></td>
-                        <td><?php echo $rs['name'] ?></td> <input type="hidden" name="name" value="<?php echo "$rs[name]"; ?>">
-                        <td align="center"><button name="btn_detail">รายละเอียด</button></td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </table>
+            <th>เลขที่</th>
+            <th>ชื่อ - นามสกุล</th>
+            <th>&nbsp;</th>
+            <?php
+            while ($rs = mysqli_fetch_array($result)) {
+            ?>
+            <tr>
+                <td><?php echo $rs['cus_id'] ?> <input type="hidden" name="cus_id" value="<?php echo "$rs[cus_id]"; ?>"></td>
+                <td><?php echo $rs['name'] ?></td>
+                <td align="center"><button name="btn_detail">รายละเอียด</button></td>
+            </tr>
+            <?php
+            }
+            mysqli_close($conn);
+            ?>
+            
+        </table>
 
-            <script>
+            <script>            
                 var btn_details = document.getElementsByName("btn_detail");
                 btn_details.forEach(function(btn) {
                     btn.addEventListener("click", function() {
-                        var cus_ids = btn.parentElement.parentElement.querySelector("td").innerText;
-                        document.location.href = "detailCus.php?cus_ids=" + cus_ids;
+                        var cus_id = btn.parentElement.parentElement.querySelector("td").innerText;
+                        document.location.href = "detailCus.php?cus_id=" + cus_id;
                     });
                 });
             </script>

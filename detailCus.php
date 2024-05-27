@@ -3,17 +3,19 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'module/connect.php';
 
-    if (isset($_GET['cus_ids'])) {
-        $cus_ids = explode(',', $_GET['cus_ids']);
-        $cus_ids_str = implode(',', array_map('intval', $cus_ids));
-
-        $sql = "SELECT * FROM customer WHERE cus_id IN ($cus_ids_str)";
-        $result = mysqli_query($conn, $sql) or die("Error in query: $sql " . mysqli_error($conn));
+    $cus_id = $_GET['cus_id'];
+    
+    $sql = "SELECT * FROM customer WHERE cus_id = $_GET[cus_id]";
+    $result = mysqli_query($conn, $sql)
+        or die("Error in query: $sql " . mysqli_error($conn));
+   
 
         $sql2 = "SELECT booking.*, service.s_name FROM booking
                  JOIN service ON booking.s_id = service.s_id
-                 WHERE booking.cus_id IN ($cus_ids_str)";
-        $result2 = mysqli_query($conn, $sql2) or die("Error in query: $sql2 " . mysqli_error($conn));
+                 WHERE booking.cus_id = $_GET[cus_id]";
+
+        $result2 = mysqli_query($conn, $sql2) 
+        or die("Error in query: $sql2 " . mysqli_error($conn));
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -76,22 +78,22 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <br>
 
                 <script>
-                    var btn_Edit = document.getElementsByName("btn_Edit")[0];
-                    btn_Edit.addEventListener("click", function(event) {
-                        event.preventDefault();
-                        var cus_ids = "<?php echo implode(',', $cus_ids); ?>";
-                        document.location.href = "editCus.php?cus_ids=" + cus_ids;
-                    });
-                </script>
+    var btn_Edit = document.getElementsByName("btn_Edit");
+    btn_Edit.forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var cus_id = "<?php echo $cus_id; ?>";
+        document.location.href = "editCus.php?cus_id=" + cus_id;
+      });
+    });
 
-                <script>
-                    function del() {
-                        if (confirm("ยืนยันการลบข้อมูล")) {
-                            var cus_ids = "<?php echo implode(',', $cus_ids); ?>";
-                            document.location.href = "module/deletecus.php?cus_ids=" + cus_ids;
-                        }
-                    }
-                </script>
+   function del() {
+        var p_id = "<?php echo $cus_id; ?>";
+        var conf = confirm("คุณต้องการลบข้อมูลใช่หรือไม่");
+        if (conf) {
+            document.location.href = "module/deletecus.php?cus_id=" + p_id;
+        }
+    }
+</script>
 
                 <div class="container">
                     <h5>ประวัติการใช้บริการ</h5>
@@ -124,9 +126,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
         </html>
 <?php
-    } else {
-        echo "No customer IDs provided.";
-    }
 } else {
     echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
     exit();

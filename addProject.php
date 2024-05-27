@@ -49,12 +49,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                             </select>
                     </td>
                 </tr>
-                
-                <tr>
-                    <td>อาจารย์ผู้คุม</td>
-                    <td><input type="text" name="teacher" required></td>
-                </tr>
-                
                 <tr>
                     <td colspan="2" align="center"><input type="submit" value="เพิ่ม"></td>
                 </tr>

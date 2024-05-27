@@ -15,7 +15,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $sql2 = "SELECT * FROM booking 
 JOIN customer ON booking.cus_id = customer.cus_id 
 JOIN service ON booking.s_id = service.s_id 
-Left JOIN program ON service.s_id = program.s_id
 ORDER BY booking.b_date ASC";
 
     $result2 = mysqli_query($conn, $sql2) or die("Error in query: $sql2 " . mysqli_error($conn));
@@ -141,7 +140,6 @@ ORDER BY booking.b_date ASC";
                                         <input type="hidden" name="cus_id" value="<?php echo $rs2['cus_id']; ?>">
                                         <input type="hidden" name="age" value="<?php echo $rs2['age']; ?>">
                                         <input type="hidden" name="name" value="<?php echo $rs2['name']; ?>">
-                                        <input type="hidden" name="p_id" value="<?php echo $rs2['p_id']; ?>">
                                         <input type="hidden" name="address" value="<?php echo $rs2['address']; ?>">
                                         <input type="hidden" name="tel" value="<?php echo $rs2['tel']; ?>">
                                         <input type="hidden" name="gender" value="<?php echo $rs2['gender']; ?>">

@@ -48,10 +48,6 @@ $rs = mysqli_fetch_array($result);
                 <td><input type="date" name="p_end" value="<?php echo "$rs[p_end]"; ?>"></td>
             </tr>
             <tr>
-                <td>ชั่วโมงสะสม</td>
-                <td><input type="number" name="max_hour" value="<?php echo "$rs[max_hour]"; ?>"></td>
-            </tr>
-            <tr>
                 <td>อาจารย์ผู้คุม</td>
                 <td><select name="t_id" id="t_id">
                         <?php
@@ -69,10 +65,7 @@ $rs = mysqli_fetch_array($result);
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td>ผู้นวดในโครงการ</td>
-                <td><input type="number" name="total_mass" value="<?php echo "$rs[total_mass]"; ?>"></td>
-            </tr>
+            
         </table>
         <br>
         <div align="center"> <!-- ปุ่มแก้ไข ยกเลิก -->
