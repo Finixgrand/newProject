@@ -69,7 +69,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </div>
 
                 <div class="text-center mt-4">
-                    <button onclick="window.history.back();" class="btn btn-secondary mr-2">กลับ</button>
+                <a href="showCus.php" class="btn btn-secondary">ย้อนกลับ</a>
                     <button id="btn_Edit" class="btn btn-primary mr-2">แก้ไข</button>
                     <button onclick="del(<?php echo $cus_id; ?>)" class="btn btn-danger">ลบ</button>
                 </div>

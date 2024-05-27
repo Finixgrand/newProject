@@ -3,7 +3,13 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'module/connect.php';
 
-    $sql = "SELECT * FROM customer";
+    $search = "";
+    if (isset($_POST['search'])) {
+        $search = $_POST['search'];
+    }
+
+    // Updated SQL query to include search filter
+    $sql = "SELECT * FROM customer WHERE u_name LIKE '%$search%' OR name LIKE '%$search%'";
     $result = mysqli_query($conn, $sql)
         or die("Error in query: $sql " . mysqli_error($conn));
 ?>
@@ -29,9 +35,10 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             <table align="center" class="search_tb" cellpadding="3">
                 <tr>
                     <td>
-                        <input type="text" name="search" id="search" placeholder="ค้นหา">
-
-                        <button>ค้นหา</button>
+                        <form method="post" action="">
+                            <input type="text" name="search" id="search" placeholder="ค้นหา" value="<?php echo $search; ?>">
+                            <button type="submit">ค้นหา</button>
+                        </form>
                     </td>
                     <td align="right">
                         <a href="./addCus.php"><u>เพิ่มผู้ใช้บริการ</u></a>
@@ -48,7 +55,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 ?>
                     <tr>
                         <td><?php echo $rs['u_name'] ?> <input type="hidden" name="cus_id" value="<?php echo "$rs[cus_id]"; ?>"></td>
-                        <td><?php echo $rs['name'] ?> <input type="hidden" name="u_name" value="<?php echo "$rs[u_name]"; ?>"></td> 
+                        <td><?php echo $rs['name'] ?> <input type="hidden" name="u_name" value="<?php echo "$rs[u_name]"; ?>"></td>
                         <td align="center"><button name="btn_detail">รายละเอียด</button></td>
                     </tr>
                 <?php
@@ -59,15 +66,14 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             </table>
 
             <script>
-    var btn_details = document.getElementsByName("btn_detail");
-    btn_details.forEach(function(btn) {
-        btn.addEventListener("click", function() {
-            var cus_id = btn.parentElement.parentElement.querySelector("td").innerText;
-            var u_name = btn.parentElement.parentElement.querySelector("td:nth-child(2)").querySelector("input[name='u_name']").value;
-            document.location.href = "detailCus.php?u_name=" + u_name;
-        });
-    });
-</script> 
+                var btn_details = document.getElementsByName("btn_detail");
+                btn_details.forEach(function(btn) {
+                    btn.addEventListener("click", function() {
+                        var u_name = btn.parentElement.parentElement.querySelector("input[name='u_name']").value;
+                        document.location.href = "detailCus.php?u_name=" + u_name;
+                    });
+                });
+            </script>
         </main>
     </body>
 
