@@ -16,9 +16,6 @@
                     <a class="nav-link" href="./showProject.php">จัดการโครงการ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./showMass.php">จัดการข้อมูลผู้นวด</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="./showCus.php">ข้อมูลผู้ใช้บริการ</a>
                 </li>
                 <li class="nav-item">
