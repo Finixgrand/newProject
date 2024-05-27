@@ -4,64 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>สมัครสมาชิก</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-custom {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
-
-    <div>
-        <form action="module/register.php" method="post">
-        <table align="center">
-            <tr>
-                <th colspan="2">สมัครสมาชิก</th>
-            </tr>
-            <tr>
-                <td>ชื่อผู้ใช้</td>
-                <td><input type="text" name="username" required></td>
-            </tr>
-            <tr>
-                <td>รหัสผ่าน</td>
-                <td><input type="password" name="password" required></td>
-            </tr>
-            <tr>
-                <td>ชื่อ - นามสกุล</td>
-                <td><input type="text" name="name" required></td>
-            </tr>
-            <tr>
-                <td>เพศ</td>
-                <td>
-                    <input type="radio" value="0" name="gender" required>ชาย
-                    <input type="radio" value="1" name="gender" required>หญิง
-                </td>
-            </tr>
-            <tr>
-                <td>อายุ</td>
-                <td><input type="number" name="age" required></td>
-            </tr>
-            <tr>
-                <td>เลขประจำตัวประชาชน</td>
-                <td><input type="text" name="IDcardnumber" required></td>
-            </tr>
-            <tr>
-                <td>ที่อยู่</td>
-                <td><textarea name="address" required></textarea></td>
-            </tr>
-            <tr>
-                <td>เบอร์โทรศัพท์</td>
-                <td><input type="text" name="tel" required></td>
-            </tr>
-        </table>
-        <br>
-
-        <div align="center">
-            <a href="javascript:history.back()" class="btn">ยกเลิก</a>
-            <button type="submit">สมัครสมาชิก</button>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>สมัครสมาชิก</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="module/register.php" method="post">
+                            <div class="form-group">
+                                <label for="username" class="form-label">ชื่อผู้ใช้</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="form-label">รหัสผ่าน</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="form-label">ชื่อ - นามสกุล</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">เพศ</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="0" required>
+                                    <label class="form-check-label" for="male">ชาย</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="1" required>
+                                    <label class="form-check-label" for="female">หญิง</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="age" class="form-label">อายุ</label>
+                                <input type="number" class="form-control" id="age" name="age" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="IDcardnumber" class="form-label">เลขประจำตัวประชาชน</label>
+                                <input type="text" class="form-control" id="IDcardnumber" name="IDcardnumber" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="form-label">ที่อยู่</label>
+                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="tel" class="form-label">เบอร์โทรศัพท์</label>
+                                <input type="text" class="form-control" id="tel" name="tel" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-custom">สมัครสมาชิก</button>
+                            <a href="javascript:history.back()" class="btn btn-secondary btn-custom">ยกเลิก</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        </form>
-
-
     </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

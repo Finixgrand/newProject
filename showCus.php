@@ -10,77 +10,82 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
     // Updated SQL query to include search filter
     $sql = "SELECT * FROM customer WHERE u_name LIKE '%$search%' OR name LIKE '%$search%'";
-    $result = mysqli_query($conn, $sql)
-        or die("Error in query: $sql " . mysqli_error($conn));
+    $result = mysqli_query($conn, $sql) or die("Error in query: $sql " . mysqli_error($conn));
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" type="text/css" href="css/showcus.css?v=2">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อมูลผู้ใช้บริการ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha384-+0n0i2I5Hl+2a9/+7eTtA7CknpXy3b3FUq4m3JZqFmIUn7Fii1o/DWy7g8J5e2Yz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/showcus.css?v=2">
+</head>
 
-    <body>
-        <?php
-        include 'component/admin_nav.php';
-        ?>
-        <div class="header">
-            <h4>ข้อมูลผู้ใช้บริการ</h4>
+<body>
+    <?php include 'component/admin_nav.php'; ?>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="header bg-secondary text-white p-1 rounded mb-4">
+                    <h4>ข้อมูลผู้ใช้บริการ</h4>
+                </div>
+            </div>
         </div>
 
-        <main>
-            <table align="center" class="search_tb" cellpadding="3">
-                <tr>
-                    <td>
-                        <form method="post" action="">
-                            <input type="text" name="search" id="search" placeholder="ค้นหา" value="<?php echo $search; ?>">
-                            <button type="submit">ค้นหา</button>
-                        </form>
-                    </td>
-                    <td align="right">
-                        <a href="./addCus.php"><u>เพิ่มผู้ใช้บริการ</u></a>
-                    </td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <form method="post" action="" class="d-flex">
+                    <input type="text" name="search" id="search" class="form-control me-2" placeholder="ค้นหา" value="<?php echo htmlspecialchars($search); ?>">
+                    <button type="submit" class="btn btn-primary">ค้นหา</button>
+                </form>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="./addCus.php" class="btn btn-success"><u>เพิ่มผู้ใช้บริการ</u></a>
+            </div>
+        </div>
 
-            <table align="center" class="main_tb">
-                <th>User</th>
-                <th>ชื่อ - นามสกุล</th>
-                <th>&nbsp;</th>
-                <?php
-                while ($rs = mysqli_fetch_array($result)) {
-                ?>
-                    <tr>
-                        <td><?php echo $rs['u_name'] ?> <input type="hidden" name="cus_id" value="<?php echo "$rs[cus_id]"; ?>"></td>
-                        <td><?php echo $rs['name'] ?> <input type="hidden" name="u_name" value="<?php echo "$rs[u_name]"; ?>"></td>
-                        <td align="center"><button name="btn_detail">รายละเอียด</button></td>
-                    </tr>
-                <?php
-                }
-                mysqli_close($conn);
-                ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="bg-secondary text-white">
+                            <tr>
+                                <th class="text-center" style="width: 15%;">User</th>
+                                <th class="text-center" style="width: 50%;">ชื่อ - นามสกุล</th>
+                                <th class="text-center" style="width: 35%;">รายละเอียด</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            while ($rs = mysqli_fetch_array($result)) {
+                            ?>
+                                <tr>
+                                    <td class="text-center"><?php echo htmlspecialchars($rs['u_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($rs['name']); ?></td>
+                                    <td class="text-center"><a href="detailCus.php?u_name=<?php echo urlencode($rs['u_name']); ?>" class="btn btn-info btn-sm">รายละเอียด</a></td>
+                                </tr>
+                            <?php
+                            }
+                            mysqli_close($conn);
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            </table>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha384-aAmPbopOa2GfnmGX1z1Ln6ftJrl8HM9vUa0ikT3FcPKU7rQ5F+GyRuHbFzjLhY3q" crossorigin="anonymous"></script>
+</body>
 
-            <script>
-                var btn_details = document.getElementsByName("btn_detail");
-                btn_details.forEach(function(btn) {
-                    btn.addEventListener("click", function() {
-                        var u_name = btn.parentElement.parentElement.querySelector("input[name='u_name']").value;
-                        document.location.href = "detailCus.php?u_name=" + u_name;
-                    });
-                });
-            </script>
-        </main>
-    </body>
+</html>
 
-    </html>
 <?php
 } else {
-    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    echo "<script> alert('กรุณาเข้าสู่ระบบ'); window.location='frm_login.php';</script>";
     exit();
 }
 ?>

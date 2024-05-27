@@ -15,43 +15,55 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ประวัติการใช้บริการ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-<?php include 'component/user_nav.php'; ?>
-<div class="container">
-    <div class="header">
-        <h4>ประวัติการใช้บริการ</h4>
-    </div>
+    <?php include 'component/user_nav.php'; ?>
+    <div class="container">
+        <div class="header text-center">
+            <h4>ประวัติการใช้บริการ</h4>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>วันที่เข้ารับบริการ</th>
-                <th>เวลา</th>
-                <th>ประเภทการใช้บริการ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if (mysqli_num_rows($result) > 0) {
-                while ($rs = mysqli_fetch_array($result)) {
-            ?>
-                    <tr>
-                        <td><?php echo $rs['b_date']; ?></td>
-                        <td><?php echo $rs['b_time']; ?></td>
-                        <td><?php echo $rs['s_name']; ?></td>
-                    </tr>
-            <?php
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>วันที่เข้ารับบริการ</th>
+                    <th>เวลา</th>
+                    <th>ประเภทการใช้บริการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (mysqli_num_rows($result) > 0) {
+                    while ($rs = mysqli_fetch_array($result)) {
+                ?>
+                        <tr>
+                            <td><?php echo $rs['b_date']; ?></td>
+                            <td><?php echo $rs['b_time']; ?></td>
+                            <td><?php echo $rs['s_name']; ?></td>
+                        </tr>
+                <?php
+                    }
+                } else {
+                    echo "<tr><td colspan='3' class='text-center'>ไม่มีข้อมูล</td></tr>";
                 }
-            } else {
-                echo "<tr><td colspan='3'>ไม่มีข้อมูล</td></tr>";
-            }
-            mysqli_close($conn);
-            ?>
-        </tbody>
-    </table>
-</div>
+                mysqli_close($conn);
+                ?>
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 <?php
