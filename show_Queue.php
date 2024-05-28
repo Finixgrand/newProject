@@ -87,6 +87,7 @@ $rs2 = mysqli_fetch_assoc($result2);
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
+                                <th>วันที่</th>
                                 <th>คิวที่เปิดรับได้</th>
                                 <th>เวลา</th>
                                 <th>การจัดการ</th>
@@ -97,6 +98,7 @@ $rs2 = mysqli_fetch_assoc($result2);
                             while ($rs = mysqli_fetch_array($result)) {
                             ?>
                                 <tr>
+                                    <td><?php echo date("d-m-Y", strtotime($rs['qt_date'])); ?></td>
                                     <td><?php echo $rs['quota']; ?></td>
                                     <td><?php echo $rs['qt_time']; ?></td>
                                     <td>

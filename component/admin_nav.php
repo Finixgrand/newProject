@@ -17,10 +17,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./showCus.php">ข้อมูลผู้ใช้บริการ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./showService.php">ประเภทการให้บริการ</a>
-                </li>
+                </li>        
                 <li class="nav-item mr-extra">
                     <a class="nav-link" href="./showTeacher.php">ข้อมูลอาจารย์</a>
                 </li>

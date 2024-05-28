@@ -41,7 +41,7 @@ $rs2 = mysqli_fetch_assoc($result2);
 
                             <?php
                         // สร้าง SQL query สำหรับดึงวันที่จากตาราง program
-                        $sql_date = "SELECT p_start, p_end FROM program";
+                        $sql_date = "SELECT p_start, p_end FROM program WHERE p_id = $p_id";
                         $result_date = $conn->query($sql_date);
 
                         // สร้าง select box
