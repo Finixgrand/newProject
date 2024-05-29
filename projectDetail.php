@@ -24,8 +24,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
     $selected_date = $_GET['selected_date'] ?? null;
 
-    $sql2 = "SELECT booking.*, customer.name, customer.age FROM booking 
-             JOIN customer ON booking.cus_id = customer.cus_id
+    $sql2 = "SELECT booking.*, customer.name, customer.age, customer.cus_id FROM booking 
+             JOIN customer ON booking.u_name = customer.u_name
              JOIN queue_table ON booking.qt_id = queue_table.qt_id
              WHERE queue_table.p_id = $p_id";
 
@@ -114,7 +114,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <!-- เพิ่ม form สำหรับเลือกวันที่ -->
         <form method="get" action="projectDetail.php">
             <label for="datepicker">เลือกวันที่ &nbsp;</label>
-            <input type="text" id="datepicker" name="selected_date" value="<?php echo $selected_date; ?>">
+            <input type="text" id="datepicker" name="selected_date" value="<?php echo $selected_date; ?>" readonly>
             <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
             
         </form>

@@ -3,10 +3,9 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'connect.php';
 
-    $b_date = $_POST['b_date'];
-    $b_time = $_POST['b_time'];
+    $b_date = $_POST['qt_date'];
+    $b_time = $_POST['qt_time'];
     $qt_id = $_POST['qt_id'];
-    $s_id = $_POST['s_id'];
     $u_name = $_SESSION['valid_uname'];
 
     $sql_cus = "SELECT * FROM customer WHERE u_name = '$u_name'"; 
@@ -17,8 +16,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         $cus_id = $row['cus_id'];
     }
 
-    $sql = "INSERT INTO booking (b_date, b_time, qt_id, s_id, u_name, cus_id) 
-    VALUES ('$b_date', '$b_time', '$qt_id', '$s_id', '$u_name', $cus_id)";
+    $sql = "INSERT INTO booking (b_date, b_time, qt_id, u_name) 
+    VALUES ('$b_date', '$b_time', '$qt_id', '$u_name')";
 
     $result = mysqli_query($conn, $sql);
 

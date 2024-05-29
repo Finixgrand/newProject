@@ -11,13 +11,13 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Booking</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-        <style>
+        
+        
+        
+       <style>
             body {
                 background-color: #f8f9fa;
             }
@@ -45,112 +45,112 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             }
         </style>
 
-<script>
-    $(document).ready(function() {
-        $('#qt_date').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
-            daysOfWeekDisabled: "0,6",
-            startDate: new Date() // Set startDate to today's date
-        });
+        <script>
+            $(document).ready(function() {
+                $('#qt_date').datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoclose: true,
+                    todayHighlight: true,
+                    daysOfWeekDisabled: "0,6",
+                    startDate: new Date() // Set startDate to today's date
+                });
 
-        $('#p_id').change(function() {
-            var p_id = $(this).val();
-            if (p_id != '') {
-                $.ajax({
-                    url: "get_dates.php",
-                    method: "POST",
-                    data: {
-                        p_id: p_id
-                    },
-                    success: function(data) {
-                        console.log('Data from get_dates.php:', data);
-                        if (data) {
-                            var availableDates = JSON.parse(data); // Update availableDates
-                            if (availableDates.length > 0) {
-                                // Find the first available date
-                                var firstAvailableDate = new Date(availableDates[0]);
-                                $('#qt_date').datepicker('destroy').datepicker({
-                                    format: 'yyyy-mm-dd',
-                                    autoclose: true,
-                                    todayHighlight: true,
-                                    daysOfWeekDisabled: "0,6",
-                                    startDate: new Date(), // Set startDate to today's date
-                                    beforeShowDay: function(date) {
-                                        // Adjust date to local timezone (UTC+7)
-                                        var localDate = new Date(date.getTime() + (7 * 60 * 60 * 1000));
-                                        var dateString = localDate.toISOString().split('T')[0];
-                                        // Adjust today's date to UTC
-                                        var today = new Date();
-                                        var todayString = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()).toISOString().split('T')[0];
-                                        // Disable dates in the past and future dates that are not in availableDates
-                                        return (dateString >= todayString && availableDates.indexOf(dateString) != -1);
+                $('#p_id').change(function() {
+                    var p_id = $(this).val();
+                    if (p_id != '') {
+                        $.ajax({
+                            url: "get_dates.php",
+                            method: "POST",
+                            data: {
+                                p_id: p_id
+                            },
+                            success: function(data) {
+                                console.log('Data from get_dates.php:', data);
+                                if (data) {
+                                    var availableDates = JSON.parse(data); // Update availableDates
+                                    if (availableDates.length > 0) {
+                                        // Find the first available date
+                                        var firstAvailableDate = new Date(availableDates[0]);
+                                        $('#qt_date').datepicker('destroy').datepicker({
+                                            format: 'yyyy-mm-dd',
+                                            autoclose: true,
+                                            todayHighlight: true,
+                                            daysOfWeekDisabled: "0,6",
+                                            startDate: new Date(), // Set startDate to today's date
+                                            beforeShowDay: function(date) {
+                                                // Adjust date to local timezone (UTC+7)
+                                                var localDate = new Date(date.getTime() + (7 * 60 * 60 * 1000));
+                                                var dateString = localDate.toISOString().split('T')[0];
+                                                // Adjust today's date to UTC
+                                                var today = new Date();
+                                                var todayString = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()).toISOString().split('T')[0];
+                                                // Disable dates in the past and future dates that are not in availableDates
+                                                return (dateString >= todayString && availableDates.indexOf(dateString) != -1);
+                                            }
+                                        });
+                                        $('#qt_date').datepicker('setDate', new Date()); // Set selected date to today
+                                        $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
+                                    } else {
+                                        console.log('No available dates found.');
+                                        $('#qt_date').datepicker('destroy');
+                                        $('#qt_date').val(''); // Clear selected date
+                                        $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
                                     }
-                                });
-                                $('#qt_date').datepicker('setDate', new Date()); // Set selected date to today
-                                $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
-                            } else {
-                                console.log('No available dates found.');
-                                $('#qt_date').datepicker('destroy');
-                                $('#qt_date').val(''); // Clear selected date
-                                $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
+                                } else {
+                                    console.log('No data received from get_dates.php');
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log('AJAX call failed:', textStatus, errorThrown);
                             }
-                        } else {
-                            console.log('No data received from get_dates.php');
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('AJAX call failed:', textStatus, errorThrown);
-                    }
-                });
-            } else {
-                $('#qt_date').datepicker('destroy');
-                $('#qt_date').val(''); // Clear selected date
-                $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
-            }
-        });
-
-        $('#qt_date').change(function() {
-            updateTimes();
-        });
-
-        $('#qt_time').change(function() {
-            var selectedOption = $(this).find('option:selected');
-            var qt_id = selectedOption.data('qt_id');
-            $('#qt_id').val(qt_id);
-        });
-
-        function updateTimes() {
-            var p_id = $('#p_id').val();
-            var qt_date = $('#qt_date').val();
-            if (p_id != '' && qt_date != '') {
-                $.ajax({
-                    url: "get_times.php",
-                    method: "POST",
-                    data: {
-                        p_id: p_id,
-                        qt_date: qt_date
-                    },
-                    success: function(data) {
-                        console.log('Data from get_times.php:', data);
-                        var times = JSON.parse(data);
-                        var options = '<option value="">เลือกเวลา</option>';
-                        $.each(times, function(index, time) {
-                            options += '<option value="' + time.qt_time + '" data-qt_id="' + time.qt_id + '">' + time.qt_time + '</option>';
                         });
-                        $('#qt_time').html(options);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('AJAX call failed:', textStatus, errorThrown);
+                    } else {
+                        $('#qt_date').datepicker('destroy');
+                        $('#qt_date').val(''); // Clear selected date
+                        $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
                     }
                 });
-            } else {
-                $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
-            }
-        }
-    });
-</script>
+
+                $('#qt_date').change(function() {
+                    updateTimes();
+                });
+
+                $('#qt_time').change(function() {
+                    var selectedOption = $(this).find('option:selected');
+                    var qt_id = selectedOption.data('qt_id');
+                    $('#qt_id').val(qt_id);
+                });
+
+                function updateTimes() {
+                    var p_id = $('#p_id').val();
+                    var qt_date = $('#qt_date').val();
+                    if (p_id != '' && qt_date != '') {
+                        $.ajax({
+                            url: "get_times.php",
+                            method: "POST",
+                            data: {
+                                p_id: p_id,
+                                qt_date: qt_date
+                            },
+                            success: function(data) {
+                                console.log('Data from get_times.php:', data);
+                                var times = JSON.parse(data);
+                                var options = '<option value="">เลือกเวลา</option>';
+                                $.each(times, function(index, time) {
+                                    options += '<option value="' + time.qt_time + '" data-qt_id="' + time.qt_id + '">' + time.qt_time + '</option>';
+                                });
+                                $('#qt_time').html(options);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log('AJAX call failed:', textStatus, errorThrown);
+                            }
+                        });
+                    } else {
+                        $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
+                    }
+                }
+            });
+        </script>
 
 
 

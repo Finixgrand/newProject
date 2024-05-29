@@ -3,11 +3,14 @@ require('fpdf/fpdf.php');
 
 include "module/connect.php";
 
+
 $cus_id = isset($_GET['cus_id']) ? $_GET['cus_id'] : 0;
 
 if ($cus_id > 0) {
     // Query เพื่อดึงข้อมูลของลูกค้าที่ต้องการพิมพ์
-    $sql = "SELECT * FROM customer WHERE cus_id = $cus_id";
+    $sql = "SELECT * FROM user 
+    JOIN customer ON user.u_name = customer.u_name
+    WHERE cus_id = $cus_id";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {

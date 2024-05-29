@@ -4,8 +4,10 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     include 'module/connect.php';
 
     $u_name = $_SESSION['valid_uname'];
-    $sql = "SELECT booking.b_date, booking.b_time, service.s_name FROM booking 
-            JOIN service ON booking.s_id = service.s_id 
+    $sql = "SELECT booking.b_date, booking.b_time, program.p_name FROM booking 
+            JOIN queue_table ON booking.qt_id = queue_table.qt_id
+            JOIN program ON queue_table.p_id = program.p_id
+            JOIN customer ON booking.u_name = customer.u_name
             WHERE booking.u_name = '$u_name'";
     $result = mysqli_query($conn, $sql) or die("Error in query: $sql " . mysqli_error($conn));
 ?>
@@ -37,9 +39,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
+                <th>การใช้บริการ</th>
                     <th>วันที่เข้ารับบริการ</th>
                     <th>เวลา</th>
-                    <th>ประเภทการใช้บริการ</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,9 +50,10 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     while ($rs = mysqli_fetch_array($result)) {
                 ?>
                         <tr>
+                        <td>
+                            <?php echo $rs['p_name']; ?></td>
                             <td><?php echo $rs['b_date']; ?></td>
                             <td><?php echo $rs['b_time']; ?></td>
-                            <td><?php echo $rs['s_name']; ?></td>
                         </tr>
                 <?php
                     }
@@ -63,7 +66,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         </table>
     </div>
     
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 <?php
