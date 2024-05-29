@@ -1,0 +1,52 @@
+body {
+  background-color: #f8faf9;
+}
+
+.card {
+  margin-top: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.btn-custom {
+  margin-top: 10px;
+}
+
+
+.datepicker .day.active, .datepicker .day.active:hover, .datepicker .day.active:focus {
+  background-color: #00ff40;
+  color: #ffffff;
+}
+
+.datepicker .day.active:hover, .datepicker .day.active:focus {
+  background-color: #e4b722;
+  color: #b57dff;
+}
+
+.datepicker .day.today {
+  background-color: #f8faf9;
+  color: #000000;
+}
+
+.datepicker .day.today:hover, .datepicker .day.today:focus {
+  background-color: #e4b722;
+  color: #29b1ff;
+}
+
+.datepicker .day.disabled, .datepicker .day.disabled:hover, .datepicker .day.disabled:focus {
+  background-color: #f8faf9;
+  color: #ffffff;
+}
+
+.datepicker .day.enable, .datepicker .day.enable:hover, .datepicker .day.enable:focus {
+  background-color: #f8faf9;
+  color: #ff0000;
+}

@@ -11,39 +11,14 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Booking</title>
+        <link href="css/add_booking.css?v=2" rel="stylesheet" type="text/css">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
         
         
         
-       <style>
-            body {
-                background-color: #f8f9fa;
-            }
-
-            .card {
-                margin-top: 50px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-
-            .card-header {
-                background-color: #007bff;
-                color: white;
-            }
-
-            .form-label {
-                font-weight: bold;
-            }
-
-            .btn-custom {
-                margin-top: 10px;
-            }
-
-            .highlighted {
-                background-color: #ff0;
-            }
-        </style>
+       
 
         <script>
             $(document).ready(function() {
