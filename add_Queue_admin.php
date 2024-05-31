@@ -15,31 +15,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/showbooking.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                function updateTimes() {
-                    var date = $('#b_date').val();
-                    $.ajax({
-                        url: 'get_times.php',
-                        type: 'post',
-                        data: {
-                            date: date
-                        },
-                        success: function(response) {
-                            $('#b_time').html(response);
-                        }
-                    });
-                }
-
-                $('#b_date').change(updateTimes);
-
-                $('#b_time').change(function() {
-                    var selectedOption = $(this).find('option:selected');
-                    var qt_id = selectedOption.data('qt_id');
-                    $('#qt_id').val(qt_id);
-                });
-            });
-        </script>
     </head>
 
     <body>
@@ -125,21 +100,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         <input type="text" name="tel" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="s_id" class="col-sm-2 col-form-label">เลือกบริการ</label>
-                    <div class="col-sm-10">
-                        <select name="s_id" id="s_id" class="form-control">
-                            <?php
-                            $sql2 = "SELECT * FROM service";
-                            $result2 = mysqli_query($conn, $sql2);
-                            while ($rs2 = mysqli_fetch_array($result2)) {
-                                echo "<option value='{$rs2['s_id']}'>{$rs2['s_name']}</option>";
-                            }
-                            ?>
-                        </select>
-                        <input type="hidden" name="qt_id" id="qt_id" value="">
-                    </div>
-                </div>
+                
                 <div class="form-group row">
                     <div class="col-sm-10 offset-sm-2" align="center">
                         <a href="javascript:history.back()" class="btn btn-secondary">ย้อนกลับ</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

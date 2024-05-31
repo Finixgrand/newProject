@@ -12,9 +12,11 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $rs = mysqli_fetch_array($result);
     $cus_id = $rs['cus_id']; // Fetch the cus_id
 
-    $sql2 = "SELECT booking.*, service.s_name FROM booking
-             JOIN service ON booking.s_id = service.s_id
-             WHERE booking.u_name = '$u_name'";
+    $sql2 = "SELECT * FROM booking, queue_table , program 
+    WHERE booking.qt_id = queue_table.qt_id 
+    AND queue_table.p_id = program.p_id 
+    AND u_name = '$u_name'";
+ 
 
     $result2 = mysqli_query($conn, $sql2) 
         or die("Error in query: $sql2 " . mysqli_error($conn));
@@ -107,7 +109,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                 ?>
                                     <tr>
                                         <td><?php echo $rs2['b_date']; ?></td>
-                                        <td><?php echo $rs2['s_name']; ?></td>
+                                        <td><?php echo $rs2['p_name']; ?></td>
                                     </tr>
                                 <?php
                                 }

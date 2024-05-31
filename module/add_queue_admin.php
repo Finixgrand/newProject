@@ -8,7 +8,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $b_date = $_POST['b_date'];
     $qt_id = $_POST['qt_id'];
     $b_time = $_POST['b_time'];
-    $s_id = $_POST['s_id'];
     $name = $_POST['name'];
     $IDcardnumber = $_POST['IDcardnumber'];
     $age = $_POST['age'];
