@@ -3,7 +3,6 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'connect.php';
 
-
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $age = $_POST['age'];
@@ -11,7 +10,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $address = $_POST['address'];
     $tel = $_POST['tel'];
 
-    $sql = "INSERT INTO masseuse (ma_name, ma_gender, ma_age, ma_id_card, ma_address, ma_tel) 
+    $sql = "INSERT INTO masseuse (ma_name, ma_gender, ma_age, ma_card, ma_address, ma_tel) 
             VALUES ('$name', '$gender', '$age', '$id_card', '$address', '$tel')";
 
     mysqli_query($conn, $sql)

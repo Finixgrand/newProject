@@ -140,7 +140,24 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                     <td><?php echo $rs2['name']; ?></td>
                                     <td><?php echo $rs2['age']; ?></td>
                                     <td><?php echo $rs2['b_time']; ?></td>
-                                    <td><?php echo "สมชาย"; ?></td>
+
+                                    <td>
+                                        <select name="ma_id" id="ma_id">
+                                        <?php
+                        $sql3 = "SELECT * FROM masseuse";
+                        $result3 = mysqli_query($conn, $sql3);
+                        while ($rs3 = mysqli_fetch_array($result3)) {
+                            echo "<option value=\"{$rs3['ma_id']}\"";
+                            if ($rs3['ma_id'] == $rs3['ma_id']) {
+                                echo ' selected';
+                            }
+                            echo ">{$rs3['ma_name']}";
+                            echo "</option>\n";
+                        }
+                        ?>
+                                        </select>
+                                    </td>
+
                                     <td>
                                         <button type="button" onclick="printPage('<?php echo $rs2['cus_id']; ?>')">พิมพ์</button>
                                     </td>
@@ -202,7 +219,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         onSelect: function(dateText) {
                             this.form.submit();
                         }
-                    });
+                    }); // กำหนดวันที่ปัจจุบัน
                 });
             </script>
 

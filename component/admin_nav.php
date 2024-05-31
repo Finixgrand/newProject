@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./showCus.php">ข้อมูลผู้ใช้บริการ</a>
                 </li>        
+                <li class="nav-item">
+                    <a class="nav-link" href="./showMass.php">ข้อมูลผู้นวด</a>
+                </li>
                 <li class="nav-item mr-extra">
                     <a class="nav-link" href="./showTeacher.php">ข้อมูลอาจารย์</a>
                 </li>

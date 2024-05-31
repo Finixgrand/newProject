@@ -11,14 +11,14 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Booking</title>
-        <link href="css/add_booking.css?v=2" rel="stylesheet" type="text/css">
+        <link href="css/add_booking.css?v=3" rel="stylesheet" type="text/css">
         <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-        
-        
-        
-       
+
+
+
+
 
         <script>
             $(document).ready(function() {
@@ -56,12 +56,29 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                                 // Adjust date to local timezone (UTC+7)
                                                 var localDate = new Date(date.getTime() + (7 * 60 * 60 * 1000));
                                                 var dateString = localDate.toISOString().split('T')[0];
-                                                // Adjust today's date to UTC
+                                                // Adjust today's date to UTC+7
                                                 var today = new Date();
-                                                var todayString = new Date(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()).toISOString().split('T')[0];
+                                                var localToday = new Date(today.getTime() + (7 * 60 * 60 * 1000));
+                                                var todayString = new Date(localToday.getFullYear(), localToday.getMonth(), localToday.getDate()).toISOString().split('T')[0];
+
+                                                // Calculate tooltip date
+                                                var tooltipDate = new Date(localDate);
+                                                tooltipDate.setDate(tooltipDate.getDate() - 1); // Subtract 1 day
+
+                                                // Format tooltip date
+                                                var tooltipDateString = tooltipDate.toISOString().split('T')[0];
+
                                                 // Disable dates in the past and future dates that are not in availableDates
-                                                return (dateString >= todayString && availableDates.indexOf(dateString) != -1);
+                                                if (dateString >= todayString && availableDates.indexOf(dateString) != -1) {
+                                                    return {
+                                                        classes: 'highlight',
+                                                        tooltip: 'Available - ' + tooltipDateString
+                                                    };
+                                                } else {
+                                                    return false;
+                                                }
                                             }
+
                                         });
                                         $('#qt_date').datepicker('setDate', new Date()); // Set selected date to today
                                         $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options

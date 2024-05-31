@@ -48,7 +48,7 @@ $rs = mysqli_fetch_array($result);
       </tr>
       <tr>
         <td>เลขประจำตัวประชาชน</td>
-        <td><input type="text" name="ma_id_card" value="<?php echo "$rs[ma_id_card]"; ?>"></td>
+        <td><input type="text" name="ma_id_card" value="<?php echo "$rs[ma_card]"; ?>"></td>
       </tr>
       <tr>
         <td>ที่อยู่</td>

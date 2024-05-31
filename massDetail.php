@@ -42,7 +42,7 @@ $ma_id = $_GET['ma_id'];
     </tr>
     <tr>
       <td>เลขประจำตัวประชาชน</td>
-      <td><?php echo "$rs[ma_id_card]"; ?></td>
+      <td><?php echo "$rs[ma_card]"; ?></td>
     </tr>
     <tr>
       <td>ที่อยู่</td>
