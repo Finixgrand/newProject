@@ -20,6 +20,6 @@ body {
   margin-top: 10px;
 }
 
-.highlight {
-  background-color: #73fdfd !important; /* สีฟ้าอ่อน */
+.unavailable {
+  color: white !important;
 }

@@ -7,29 +7,40 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $b_time = $_POST['qt_time'];
     $qt_id = $_POST['qt_id'];
     $u_name = $_SESSION['valid_uname'];
+    $p_id = $_POST['p_id'];
+    $quota = $_POST['quota'];
 
-    $sql_cus = "SELECT * FROM customer WHERE u_name = '$u_name'"; 
-    $result_cus = mysqli_query($conn, $sql_cus); 
+    
+ // ตรวจสอบว่าโควต้าการจองได้ถูกเต็มหรือไม่
+ $sql_count = "SELECT COUNT(qt_id) AS booked_count FROM booking WHERE qt_id = '$qt_id'";
+ $result_count = mysqli_query($conn, $sql_count);
+ $row_count = mysqli_fetch_assoc($result_count);
+ $booked_count = $row_count['booked_count'];
 
-    if (mysqli_num_rows($result_cus) > 0) {
-        $row = mysqli_fetch_assoc($result_cus);
-        $cus_id = $row['cus_id'];
-    }
+ if ($booked_count == $quota) 
+ {
+     echo "<script>alert('ไม่สามารถทำการจองได้เนื่องจากโควต้าการจองได้ถูกเต็มแล้ว'); window.location='../add_booking.php';</script>";
+     exit();
+ } 
+ else 
+ {  
+         $sql_booking = "INSERT INTO booking (b_time, b_date, qt_id, u_name) 
+                         VALUES ('$b_time', '$b_date', '$qt_id', '$u_name')";
 
-    $sql = "INSERT INTO booking (b_date, b_time, qt_id, u_name) 
-    VALUES ('$b_date', '$b_time', '$qt_id', '$u_name')";
-
-    $result = mysqli_query($conn, $sql);
-
-    if ($result) {
-        echo "<script language=\"javascript\">";
-        echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว');";
-        echo "window.location = '../cusHome.php';";
-        echo "</script>";
-    } else {
-        echo "เกิดข้อผิดพลาด: " . mysqli_error($conn);
-    }
-
+         if (mysqli_query($conn, $sql_booking)) 
+         {
+             echo "<script>alert('จองคิวเรียบร้อยแล้ว'); window.location='../add_booking.php';</script>";
+             exit();
+         } 
+         else 
+         {
+             echo "<script>alert('ไม่สามารถบันทึกข้อมูลลูกค้าได้'); window.location='../add_booking.php';</script>";
+             exit();
+         }
+     } 
+     
+ mysqli_close($conn);
+ 
 ?>
     <!DOCTYPE html>
     <html lang="en">

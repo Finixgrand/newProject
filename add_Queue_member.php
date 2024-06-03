@@ -1,0 +1,188 @@
+<?php
+session_start();
+if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
+    include 'module/connect.php';
+
+    $p_id = $_GET['p_id'];
+
+    // เรียกดูข้อมูลจากตาราง program เพื่อใช้กำหนดวันที่เริ่มต้นและสิ้นสุด
+    $query = "SELECT * FROM program WHERE p_id = '$p_id'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $p_start = $row['p_start']; // วันที่เริ่มต้นที่สามารถเลือกได้
+    $p_end = $row['p_end']; // วันที่สิ้นสุดที่สามารถเลือกได้
+
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>จองคิวสมาชิกเก่า</title>
+        <link rel="stylesheet" type="text/css" href="css/showbooking.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                let isUsernameValid = false;
+
+                $('#b_date').datepicker({
+                    format: 'yyyy-mm-dd', // รูปแบบวันที่ที่ต้องการ (เช่น 'yyyy-mm-dd' หรือ 'dd/mm/yyyy')
+                    autoclose: true, // ปิด Datepicker เมื่อเลือกวันที่เสร็จสิ้น
+                    todayHighlight: true, // เน้นวันที่ปัจจุบัน
+                    startDate: '<?php echo $p_start; ?>', // วันที่เริ่มต้นที่สามารถเลือกได้
+                    endDate: '<?php echo $p_end; ?>', // วันที่สิ้นสุดที่สามารถเลือกได้
+                    daysOfWeekDisabled: [0, 6], // ไม่ให้เลือกวันเสาร์และอาทิตย์
+                    beforeShowDay: function(date) {
+                        var day = date.getDay();
+                        return [(day != 0 && day != 6)]; // ไม่ให้เลือกวันเสาร์และอาทิตย์
+                    },
+                    timezone: 'UTC+7' // เปลี่ยนไทม์โซนเป็น UTC+7
+                }).on('changeDate', function() {
+                    let qt_date = $(this).val();
+                    let p_id = $('input[name="p_id"]').val();
+                    $.ajax({
+                        url: 'get_times_admin.php',
+                        type: 'post',
+                        data: {
+                            qt_date: qt_date,
+                            p_id: p_id
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            var len = response.length;
+                            $("#b_time").empty();
+                            for (var i = 0; i < len; i++) {
+                                var qt_time = response[i]['qt_time'];
+                                var quota = response[i]['quota'];
+                                if (quota > 0) {
+                                    $("#b_time").append("<option value='" + qt_time + "'>" + qt_time + "</option>");
+                                }
+                            }
+                            // เมื่อเลือกวันที่สำเร็จ ให้ตั้งค่า qt_id ตาม response ที่ได้จากการเลือกวันที่
+                            if (response.length > 0) {
+                                var qt_id = response[0]['qt_id']; // ตั้งค่า qt_id จาก response ที่ได้
+                                $('#qt_id').val(qt_id); // กำหนดค่าให้กับ input qt_id
+                            } else {
+                                $('#qt_id').val(''); // กำหนดค่าให้กับ input qt_id เป็นค่าว่าง
+                            }
+                            // เมื่อเลือกวันที่สำเร็จ ให้ตั้งค่า quota ตาม response ที่ได้จากการเลือกวันที่
+                            if (response.length > 0) {
+                                var quota = response[0]['quota']; // ตั้งค่า quota จาก response ที่ได้
+                                $('#quota').val(quota); // กำหนดค่าให้กับ input quota
+                            } else {
+                                $('#quota').val(''); // กำหนดค่าให้กับ input quota เป็นค่าว่าง
+                            }
+                        }
+                    });
+                });
+
+
+                function toggleSubmitButton() {
+                    if (isUsernameValid) {
+                        $('button[type="submit"]').prop('disabled', false);
+                    } else {
+                        $('button[type="submit"]').prop('disabled', true);
+                    }
+                }
+
+                function validateInput(value) {
+                    value = value.trim();
+                    return value !== "" && value.indexOf(' ') === -1;
+                }
+
+                // ตรวจสอบ Username
+                $('#check_user').click(function() {
+                    var u_name = $('input[name="u_name"]').val().trim();
+                    if (!validateInput(u_name)) {
+                        $('#user_status').text("Username ห้ามมีช่องว่างที่ด้านหน้าและด้านหลัง หรือมีช่องว่างภายใน").css('color', 'red');
+                        isUsernameValid = false;
+                        toggleSubmitButton();
+                        return;
+                    }
+                    $.ajax({
+                        url: 'check_member.php',
+                        type: 'post',
+                        data: {
+                            u_name: u_name
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status == "exists") {
+                                $('#user_status').text("ชื่อลูกค้า: " + response.name).css('color', 'green');
+                                isUsernameValid = true;
+                            } else {
+                                $('#user_status').text("ไม่พบผู้ใช้งาน").css('color', 'red');
+                                isUsernameValid = false;
+                            }
+                            toggleSubmitButton();
+                        }
+                    });
+                });
+
+                // ปิดการใช้งานปุ่ม submit ในตอนเริ่มต้น
+                toggleSubmitButton();
+            });
+        </script>
+    </head>
+
+    <body>
+        <?php include 'component/admin_nav.php'; ?>
+
+        <main>
+            <div class="container my-5">
+
+                <h2 class="text-center mb-4">จองคิว (เก่า)</h2>
+
+                <form action="module/add_q_member.php" method="post" class="needs-validation" novalidate>
+
+                    <div class="form-group row">
+                        <label for="u_name" class="col-sm-2 col-form-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="u_name" class="form-control" required>
+                            <button type="button" class="btn btn-secondary" id="check_user">ตรวจสอบ</button>
+                        </div>
+                        <span id="user_status" class="mt-2 d-block"></span>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="b_date" class="col-sm-2 col-form-label">เลือกวันที่</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="b_date" id="b_date" class="form-control" autocomplete="off" readonly>
+                        </div>
+                        <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
+                        <input type="hidden" name="qt_id" id="qt_id" value="">
+                        <input type="hidden" name="quota" id="quota" value="">
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="b_time" class="col-sm-2 col-form-label">เลือกเวลา</label>
+                        <div class="col-sm-10">
+                            <select name="b_time" id="b_time" class="form-control">
+                                <option value="">โปรดเลือกวันที่ก่อน</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+
+                        <a href="javascript:history.back()" class="btn btn-secondary">ย้อนกลับ</a>
+                        <button type="submit" class="btn btn-primary" disabled>ตกลง</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </main>
+
+    </body>
+
+    </html>
+<?php
+} else {
+    echo "<script> alert('Please Login'); window.location='frm_login.php';</script>";
+    exit();
+}
+?>

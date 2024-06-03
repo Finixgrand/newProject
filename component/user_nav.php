@@ -15,8 +15,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./cusHome.php">หน้าแรก</a>
                 </li>
-                <li class="nav-item mr-extra">
+                <li class="nav-item">
                     <a class="nav-link" href="./add_Booking.php">การจองคิว</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="./cus_History.php">ประวัติการใช้บริการ</a>
                 </li>
             </ul>
             <ul class="navbar-nav"> <!-- ใช้ navbar-nav ปกติเพื่อปุ่ม Logout อยู่ด้านขวา -->

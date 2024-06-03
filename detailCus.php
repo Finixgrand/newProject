@@ -12,9 +12,10 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $rs = mysqli_fetch_array($result);
     $cus_id = $rs['cus_id']; // Fetch the cus_id
 
-    $sql2 = "SELECT * FROM booking, queue_table , program 
+    $sql2 = "SELECT * FROM booking, queue_table, program, masseuse
     WHERE booking.qt_id = queue_table.qt_id 
     AND queue_table.p_id = program.p_id 
+    AND booking.ma_id = masseuse.ma_id
     AND u_name = '$u_name'";
  
 
@@ -101,6 +102,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                 <tr>
                                     <th>วันที่ใช้บริการ</th>
                                     <th>ประเภทที่มาใช้บริการ</th>
+                                    <th>ผู้นวด</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,6 +112,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                     <tr>
                                         <td><?php echo $rs2['b_date']; ?></td>
                                         <td><?php echo $rs2['p_name']; ?></td>
+                                        <td><?php echo $rs2['ma_name']; ?></td>
                                     </tr>
                                 <?php
                                 }

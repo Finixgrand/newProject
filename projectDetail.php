@@ -107,10 +107,12 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         </script>
 
         <div class="container booking-section">
-            <h5>รายการจอง</h5>
-            <div class="text-end">
-                <a href="add_Queue_admin.php?p_id=<?php echo $p_id; ?>" class="btn btn-success">เพิ่มการจอง</a>
+        <div class="text-end">
+                <a href="add_Queue_admin.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary">จองคิว (ลูกค้าใหม่)</a>
+                <a href="add_Queue_member.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary">จองคิว (ลูกค้าเก่า)</a>
             </div>
+            <h5>รายการจอง</h5>
+            
 
             <!-- เพิ่ม form สำหรับเลือกวันที่ -->
             <form method="get" action="projectDetail.php">
