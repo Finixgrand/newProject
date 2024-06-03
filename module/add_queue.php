@@ -7,11 +7,11 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $p_id = $_POST['p_id'];
     $qt_date = $_POST['qt_date'];
     $qt_time = $_POST['qt_time'];
-    $qouta = $_POST['qouta'];
+    $quota = $_POST['quota'];
     $add_all_dates = isset($_POST['add_all_dates']) ? $_POST['add_all_dates'] : 0;
 
     // สร้าง SQL query สำหรับดึงวันที่จากตาราง program
-    $sql_date = "SELECT p_start, p_end FROM program";
+    $sql_date = "SELECT p_start, p_end FROM program WHERE p_id = $p_id";
     $result_date = $conn->query($sql_date);
 
     if ($result_date->num_rows > 0) {
@@ -26,7 +26,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 if ($date->format('N') >= 1 && $date->format('N') <= 5) {
                     // ถ้า add_all_dates = 1 เพิ่มข้อมูลลงฐานข้อมูล
                     if ($add_all_dates == 1) {
-                        $sql_insert = "INSERT INTO queue_table (qt_date, qt_time, quota, p_id) VALUES ('" . $date->format("Y-m-d") . "', '$qt_time', '$qouta', '$p_id')";
+                        $sql_insert = "INSERT INTO queue_table (qt_date, qt_time, quota, p_id) VALUES ('" . $date->format("Y-m-d") . "', '$qt_time', '$quota', '$p_id')";
                         if ($conn->query($sql_insert) === TRUE) {
                             echo "<script language=\"javascript\">";
                             echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว');";
@@ -39,7 +39,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         // เปรียบเทียบ qt_date กับวันที่ปัจจุบันในฟอร์แมต "Y-m-d"
                         $qt_date_obj = DateTime::createFromFormat("d/m/YY", $qt_date);
                         if ($qt_date_obj && $qt_date_obj->format("d/m/YY") == $date->format("d/m/YY")) {
-                            $sql_insert = "INSERT INTO queue_table (qt_date, qt_time, quota, p_id) VALUES ('" . $date->format("Y-m-d") . "', '$qt_time', '$qouta', '$p_id')";
+                            $sql_insert = "INSERT INTO queue_table (qt_date, qt_time, quota, p_id) VALUES ('" . $date->format("Y-m-d") . "', '$qt_time', '$quota', '$p_id')";
                             if ($conn->query($sql_insert) === TRUE) {
                                 echo "<script language=\"javascript\">";
                                 echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว');";

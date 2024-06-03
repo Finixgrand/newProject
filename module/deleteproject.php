@@ -5,10 +5,14 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
     $p_id = $_GET['p_id'];
 
-    $sql = "DELETE FROM program WHERE p_id = '$p_id'";
+    // ลบข้อมูลในตาราง program
+    $sql_program = "DELETE FROM program WHERE p_id = '$p_id'";
+    mysqli_query($conn, $sql_program) or die("Error in query: $sql_program " . mysqli_error($conn));
 
-    mysqli_query($conn, $sql)
-        or die("Error in query: $sql " . mysqli_error($conn));
+    // ลบข้อมูลในตาราง queue_table ที่มี p_id เดียวกัน
+    $sql_queue = "DELETE FROM queue_table WHERE p_id = '$p_id'";
+    mysqli_query($conn, $sql_queue) or die("Error in query: $sql_queue " . mysqli_error($conn));
+
     mysqli_close($conn);
 
     echo "<script language=\"javascript\">";

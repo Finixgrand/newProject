@@ -27,7 +27,7 @@ $rs2 = mysqli_fetch_assoc($result2);
 
     <main>
         <div class="container">
-            <h2 class="mb-4">เพิ่มคิวนวดแผนไทย</h2>
+            <h2 class="mb-4">เพิ่มตารางเวลา</h2>
             <div class="row">
                 <div class="col-md-6">
                     <form action="module/add_queue.php" method="post">
@@ -74,11 +74,12 @@ $rs2 = mysqli_fetch_assoc($result2);
                             <input type="time" class="form-control" name="qt_time" required>
                         </div>
                         <div class="form-group">
-                            <label for="qouta">จำนวนคิวที่รับ</label>
-                            <input type="number" class="form-control" name="qouta" required>
+                            <label for="quota">จำนวนคิวที่รับ</label>
+                            <input type="number" class="form-control" name="quota" required>
                         </div>
                         
                         <div class="form-group">
+                            <button type="button" class="btn btn-secondary" onclick="window.history.back();">ย้อนกลับ</button>
                             <button type="submit" class="btn btn-primary">บันทึก</button>
                         </div>
                     </form>

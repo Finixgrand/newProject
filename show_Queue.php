@@ -40,7 +40,7 @@ $rs2 = mysqli_fetch_assoc($result2);
 
     <main>
         <div class="container">
-            <h2 class="mb-4">ข้อมูลคิวนวดแผนไทย</h2>
+            <h2 class="mb-4">แสดงตารางเวลา</h2>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -48,7 +48,8 @@ $rs2 = mysqli_fetch_assoc($result2);
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <div align="right"><a href="add_Queue.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary mb-3">เพิ่มคิว</a></div>
+                    <div align="right"><a href="add_Queue.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary mb-3">เพิ่มตารางเวลา</a></div>
+                    <div align="left"><a href="showProject.php?" class="btn btn-secondary mb-3">กลับ</a></div>
                     <div align="center">
                         <form method="post" action="show_Queue.php?p_id=<?php echo $p_id; ?>">
                             เลือกวันที่ &nbsp;&nbsp;

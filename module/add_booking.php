@@ -29,7 +29,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
          if (mysqli_query($conn, $sql_booking)) 
          {
-             echo "<script>alert('จองคิวเรียบร้อยแล้ว'); window.location='../add_booking.php';</script>";
+             echo "<script>alert('จองคิวเรียบร้อยแล้ว'); window.location='../cusHome.php';</script>";
              exit();
          } 
          else 

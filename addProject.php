@@ -49,8 +49,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                     ?>
                                 </select>
                             </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">เพิ่ม</button>
+                            <div class="table-responsive" align="center">
+                            <a href="showProject.php" class="btn btn-secondary">กลับ</a>
+                            <button type="submit" class="btn btn-primary">เพิ่ม</button>     
                             </div>
                         </form>
                     </div>
