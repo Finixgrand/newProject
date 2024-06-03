@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+include 'module/connect.php';
 
 if (isset($_POST['qt_id'])) {
     $qt_id = $_POST['qt_id'];
