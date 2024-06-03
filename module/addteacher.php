@@ -13,7 +13,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         or die("Error in query: $sql " . mysqli_error($conn));
 
     if ($result) {
-        echo "<script>alert('เพิ่มข้อมูลสำเร็จ'); location.href='../showTeacher.php';</script>";
+        echo "<script>alert('เพิ่มข้อมูลสำเร็จ'); location.href='../showteacher.php';</script>";
     } else {
         echo "<script>alert('เพิ่มข้อมูลไม่สำเร็จ'); location.href='../addTeacher.php';</script>";
     }

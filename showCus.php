@@ -19,8 +19,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข้อมูลผู้ใช้บริการ</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha384-+0n0i2I5Hl+2a9/+7eTtA7CknpXy3b3FUq4m3JZqFmIUn7Fii1o/DWy7g8J5e2Yz" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/showcus.css?v=2">
+
 </head>
 
 <body>
@@ -77,8 +77,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             </div>
         </div>
     </div>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha384-aAmPbopOa2GfnmGX1z1Ln6ftJrl8HM9vUa0ikT3FcPKU7rQ5F+GyRuHbFzjLhY3q" crossorigin="anonymous"></script>
 </body>
 
 </html>

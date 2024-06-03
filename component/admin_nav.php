@@ -21,8 +21,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="./showMass.php">ข้อมูลผู้นวด</a>
                 </li>
-                <li class="nav-item mr-extra">
-                    <a class="nav-link" href="./showTeacher.php">ข้อมูลอาจารย์</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="./showteacher.php">ข้อมูลอาจารย์</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

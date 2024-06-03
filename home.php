@@ -67,7 +67,7 @@ include 'module/connect.php';
     <div class="container text-center">
         <div class="row">
             <div class="col-12 my-4">
-                <img src="https://scontent.fcnx4-1.fna.fbcdn.net/v/t39.30808-6/334071031_1122686835798319_4839556452845709013_n.png?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=dQjppDEfEPUQ7kNvgGwyWZa&_nc_ht=scontent.fcnx4-1.fna&oh=00_AYBRHVeH6rK1IsFn4YpOzFmiSCsC0UwTtCexkoe1VZwieA&oe=6654DB82" class="img-fluid" alt="Responsive image">
+                <img src="component/header.png" class="img-fluid" alt="Responsive image">
             </div>
         </div>
 
@@ -80,10 +80,10 @@ include 'module/connect.php';
 
         <div class="row">
             <div class="col-md-6 my-4">
-                <img src="https://scontent.fcnx4-1.fna.fbcdn.net/v/t39.30808-6/405798258_371880661875149_437384523169375949_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=PvEnAYfbLUsQ7kNvgFqC8Nm&_nc_ht=scontent.fcnx4-1.fna&oh=00_AYAUKYBpQL8kwDmcqH2mLm30wLkkikQZHypovAYdDL85pA&oe=66550B61" class="img-fluid" alt="Responsive image">
+                <img src="component/body.jpg" class="img-fluid" alt="Responsive image">
             </div>
             <div class="col-md-6 my-4">
-                <img src="https://scontent.fcnx4-1.fna.fbcdn.net/v/t39.30808-6/405798258_371880661875149_437384523169375949_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=PvEnAYfbLUsQ7kNvgFqC8Nm&_nc_ht=scontent.fcnx4-1.fna&oh=00_AYAUKYBpQL8kwDmcqH2mLm30wLkkikQZHypovAYdDL85pA&oe=66550B61" class="img-fluid" alt="Responsive image">
+            <img src="component/body.jpg" class="img-fluid" alt="Responsive image">
             </div>
         </div>
 
@@ -95,7 +95,7 @@ include 'module/connect.php';
 
         <div class="row">
             <div class="col-12 my-4">
-                <img src="https://scontent.fcnx4-1.fna.fbcdn.net/v/t39.30808-6/367471997_319880557075160_4427239131677916349_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Yb7qyIrxtYcQ7kNvgHarlw3&_nc_ht=scontent.fcnx4-1.fna&oh=00_AYCX9CQnX4fcCNsYJilW7IDK5l02PliwgI4LJCVym3Tkxg&oe=6654ED07" class="img-fluid" alt="Responsive image">
+                <img src="component/detail.jpg" class="img-fluid" alt="Responsive image">
             </div>
         </div>
     </div>
