@@ -67,7 +67,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                     }
                                 }
                             });
-                            $('#qt_date').datepicker('setDate', new Date()); // Set selected date to today
+                           
                             $('#qt_time').html('<option value="">เลือกเวลา</option>'); // Clear time options
                         } else {
                             console.log('No available dates found.');

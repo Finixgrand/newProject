@@ -13,7 +13,7 @@ if (isset($_POST['selected_date'])) {
     $selected_date = null;
 }
 
-$sql = "SELECT * FROM queue_table WHERE p_id = '$p_id'";
+$sql = "SELECT * FROM queue_table WHERE p_id = '$p_id' ORDER BY qt_date ASC, qt_time ASC";
 if ($selected_date) {
     // แปลงค่าวันที่ให้เป็นฟอร์แมตที่ตรงกับในฐานข้อมูล
     $selected_date_db = DateTime::createFromFormat('d/m/Y', $selected_date)->format('Y-m-d');

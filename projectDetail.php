@@ -33,7 +33,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         $sql2 .= " AND booking.b_date = '$selected_date'";
     }
 
-    $sql2 .= " ORDER BY booking.b_date ASC";
+    $sql2 .= " ORDER BY booking.b_date ASC, booking.b_time ASC";
     $result2 = mysqli_query($conn, $sql2) or die("Error in query: $sql2 " . mysqli_error($conn));
 
 ?>
@@ -107,19 +107,19 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         </script>
 
         <div class="container booking-section">
-        <div class="text-end">
+            <div class="text-end">
                 <a href="add_Queue_admin.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary">จองคิว (ลูกค้าใหม่)</a>
                 <a href="add_Queue_member.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary">จองคิว (ลูกค้าเก่า)</a>
             </div>
             <h5>รายการจอง</h5>
-            
+
 
             <!-- เพิ่ม form สำหรับเลือกวันที่ -->
             <form method="get" action="projectDetail.php">
                 <label for="datepicker">เลือกวันที่ &nbsp;</label>
                 <input type="text" id="datepicker" name="selected_date" value="<?php echo $selected_date; ?>" readonly>
                 <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
-
+                <input type="hidden" name="t_id" value="<?php echo $rs['t_id']; ?>">
             </form>
 
             <div class="table-responsive-sm mt-3">
@@ -144,7 +144,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                         <td><?php echo $rs2['name']; ?></td>
                                         <td><?php echo $rs2['age']; ?></td>
                                         <td><?php echo $rs2['b_time']; ?></td>
-
                                         <td>
                                             <?php
                                             if ($rs2['b_status'] == 0) {
@@ -167,7 +166,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                                 $rs3 = mysqli_fetch_array($result3);
                                                 echo "$rs3[ma_name]";
                                             }
-                                            
+
                                             ?>
                                         </td>
                                         <td>
@@ -180,7 +179,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                             ?>
                                         </td>
                                         <td>
-                                            <button type="button" onclick="printPage('<?php echo $rs2['cus_id']; ?>')">พิมพ์</button>
+                                            <input type="hidden" name="b_id" value="<?php echo $rs2['b_id']; ?>">
+                                            <button type="button" onclick="printPage('<?php echo $rs2['cus_id']; ?>', '<?php echo $p_id; ?>', '<?php echo $rs['t_id']; ?>', '<?php echo $rs2['b_id']; ?>')">พิมพ์</button>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
@@ -215,8 +215,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         </div>
 
         <script>
-            function printPage(cus_id) {
-                var win = window.open('print.php?cus_id=' + cus_id, '_blank');
+            function printPage(cus_id, p_id, t_id, b_id) {
+                var win = window.open('print.php?cus_id=' + cus_id + '&p_id=' + p_id + '&t_id=' + t_id + '&b_id=' + b_id, '_blank');
                 win.focus();
                 win.onload = function() {
                     win.print();
@@ -224,7 +224,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             }
 
             function btn_con(b_id, ma_id) {
-                var conf = confirm("คุณต้องการยืนยันการจองใช่หรือไม่");
+                var conf = confirm("ยืนยันการเข้ารับบริการใช่หรือไม่");
                 if (conf) {
                     $.ajax({
                         url: 'module/confirm.php',
@@ -236,7 +236,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         },
                         success: function(response) {
                             if (response.trim() === 'success') {
-                                alert('ยืนยันการจองเรียบร้อยแล้ว');
+                                alert('ยืนยันการเข้ารับบริการเรียบร้อยแล้ว');
                                 location.reload();
                             } else {
                                 alert('มีบางอย่างผิดพลาด: ' + response);
@@ -312,4 +312,3 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     exit();
 }
 ?>
-

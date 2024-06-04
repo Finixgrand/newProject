@@ -12,7 +12,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             FROM queue_table
             INNER JOIN program ON queue_table.p_id = program.p_id
             WHERE queue_table.qt_date = '$qt_date'
-            AND program.p_id = '$p_id'";
+            AND program.p_id = '$p_id' order by queue_table.qt_time ASC";
 
     $result = mysqli_query($conn, $sql);
 

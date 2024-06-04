@@ -5,6 +5,25 @@ include "module/connect.php";
 
 
 $cus_id = isset($_GET['cus_id']) ? $_GET['cus_id'] : 0;
+$p_id = isset($_GET['p_id']) ? $_GET['p_id'] : 0;
+$t_id = isset($_GET['t_id']) ? $_GET['t_id'] : 0;
+$b_id = isset($_GET['b_id']) ? $_GET['b_id'] : 0;
+
+$p_sql = "SELECT * FROM program 
+JOIN teacher ON program.t_id = teacher.t_id 
+WHERE p_id = $p_id";
+$p_result = mysqli_query($conn, $p_sql);
+$p_row = mysqli_fetch_assoc($p_result);
+$teacher = $p_row['t_name'];
+
+$b_sql = "SELECT * FROM masseuse
+JOIN booking ON masseuse.ma_id = booking.ma_id
+WHERE b_id = $b_id";
+$b_result = mysqli_query($conn, $b_sql);
+$b_row = mysqli_fetch_assoc($b_result);
+$mass = $b_row['ma_name'];
+
+
 
 if ($cus_id > 0) {
     // Query เพื่อดึงข้อมูลของลูกค้าที่ต้องการพิมพ์
@@ -45,7 +64,7 @@ $pdf->AddFont('THSarabun', 'B', 'THSarabun Bold.php');
 $pdf->AddPage();
 
 $pdf->SetFont('THSarabun', 'B', 24);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'รายงานการเข้าร่วมโครงการ'), 0, 1, 'C');
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ใบประวัติผู้ใช้บริการ'), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'วันที่ : ' . date('d/m/Y')), 0, 1, 'R');
@@ -201,15 +220,15 @@ $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'ลงชื่อ _______________
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->SetY($pdf->GetY() + 0);
 $pdf->SetX($pdf->GetX() + 7);
-$pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', '(____________________________)'), 0, 0, 'L');
+$pdf->Cell(65, 10, iconv('UTF-8', 'TIS-620', '( '.$mass.' )'), 0, 0, 'C');
 $pdf->SetY($pdf->GetY() + 0);
 $pdf->SetX($pdf->GetX() + 102);
-$pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', '(____________________________)'), 0, 1, 'L');
+$pdf->Cell(65, 10, iconv('UTF-8', 'TIS-620', '(  '.$name.'  )'), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ลงชื่อ ___________________________ อาจารย์ผู้ควบคุม '), 0, 1, 'C');
-$pdf->SetX($pdf->GetX() + 56);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', '(____________________________)'), 0, 1, 'L');
+$pdf->SetX($pdf->GetX() + -10);
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', '( '.$teacher.' )'), 0, 1, 'C');
 
 $pdf->Output();
 

@@ -7,8 +7,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $sql = "SELECT booking.b_date, booking.b_time, program.p_name FROM booking 
             JOIN queue_table ON booking.qt_id = queue_table.qt_id
             JOIN program ON queue_table.p_id = program.p_id
-            JOIN customer ON booking.u_name = customer.u_name
             WHERE booking.u_name = '$u_name'";
+
     $result = mysqli_query($conn, $sql) or die("Error in query: $sql " . mysqli_error($conn));
 ?>
 

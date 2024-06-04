@@ -23,3 +23,16 @@ body {
 .unavailable {
   color: white !important;
 }
+
+
+/* ลบพื้นหลังของวันที่ถูกเน้น */
+.datepicker{
+  background-color: white !important;
+}
+
+/* CSS to style the datepicker */
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover {
+    background-color: transparent !important; /* Set active date background to transparent */
+    outline: none; /* Remove any outline */
+}

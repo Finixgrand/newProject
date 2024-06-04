@@ -13,7 +13,7 @@ $data = $result->fetch_assoc();
 $stmt->close();
 
 // Query to get qt_time
-$stmt = $conn->prepare("SELECT qt_time FROM queue_table WHERE p_id = ? AND qt_date = ?");
+$stmt = $conn->prepare("SELECT qt_time FROM queue_table WHERE p_id = ? AND qt_date = ? ORDER BY qt_time ASC");
 $stmt->bind_param("is", $p_id, $qt_date);
 $stmt->execute();
 $result = $stmt->get_result();
