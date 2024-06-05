@@ -179,7 +179,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                     </select>
                                 </div>
                                 <div class="form-group d-flex justify-content-between">
-                                    <a href="javascript:history.back()" class="btn btn-secondary btn-custom">ย้อนกลับ</a>
+                                    <a href="./cusHome.php" class="btn btn-secondary btn-custom">ย้อนกลับ</a>
                                     <button type="submit" class="btn btn-primary btn-custom">ตกลง</button>
                                 </div>
                             </form>
