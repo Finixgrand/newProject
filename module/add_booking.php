@@ -19,7 +19,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
  if ($booked_count == $quota) 
  {
-     echo "<script>alert('ไม่สามารถทำการจองได้เนื่องจากโควต้าการจองได้ถูกเต็มแล้ว'); window.location='../add_booking.php';</script>";
+     echo "<script>alert('ไม่สามารถทำการจองได้เนื่องจากโควต้าการจองได้ถูกเต็มแล้ว'); window.location='../add_Booking.php';</script>";
      exit();
  } 
  else 
@@ -34,7 +34,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
          } 
          else 
          {
-             echo "<script>alert('ไม่สามารถบันทึกข้อมูลลูกค้าได้'); window.location='../add_booking.php';</script>";
+             echo "<script>alert('ไม่สามารถบันทึกข้อมูลลูกค้าได้'); window.location='../add_Booking.php';</script>";
              exit();
          }
      } 

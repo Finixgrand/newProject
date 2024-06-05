@@ -29,7 +29,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 let isUsernameValid = false;
                 let isIDCardValid = false;
 
-
                 // เรียกใช้งาน Bootstrap Datepicker
                 $('#b_date').datepicker({
                     format: 'yyyy-mm-dd', // รูปแบบวันที่ที่ต้องการ (เช่น 'yyyy-mm-dd' หรือ 'dd/mm/yyyy')
@@ -59,46 +58,35 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         success: function(response) {
                             var len = response.length;
                             $("#b_time").empty();
+                            // เพิ่ม option สำหรับ "เลือกเวลา" เป็นค่าเริ่มต้น
+                            $("#b_time").append("<option value=''>เลือกเวลา</option>");
                             for (var i = 0; i < len; i++) {
                                 var qt_time = response[i]['qt_time'];
                                 var quota = response[i]['quota'];
+                                var qt_id = response[i]['qt_id'];
                                 if (quota > 0) {
-                                    $("#b_time").append("<option value='" + qt_time + "'>" + qt_time + "</option>");
+                                    $("#b_time").append("<option value='" + qt_id + "' data-qt_time='" + qt_time + "' data-quota='" + quota + "'>" + qt_time + "</option>");
                                 }
                             }
-                            // เมื่อเลือกวันที่สำเร็จ ให้ตั้งค่า qt_id ตาม response ที่ได้จากการเลือกวันที่
-                            if (response.length > 0) {
-                                var qt_id = response[0]['qt_id']; // ตั้งค่า qt_id จาก response ที่ได้
-                                $('#qt_id').val(qt_id); // กำหนดค่าให้กับ input qt_id
-                            } else {
-                                $('#qt_id').val(''); // กำหนดค่าให้กับ input qt_id เป็นค่าว่าง
-                            }
-                            // เมื่อเลือกวันที่สำเร็จ ให้ตั้งค่า quota ตาม response ที่ได้จากการเลือกวันที่
-                            if (response.length > 0) {
-                                var quota = response[0]['quota']; // ตั้งค่า quota จาก response ที่ได้
-                                $('#quota').val(quota); // กำหนดค่าให้กับ input quota
-                            } else {
-                                $('#quota').val(''); // กำหนดค่าให้กับ input quota เป็นค่าว่าง
-                            }
+                            // ล้างค่าของ input qt_id และ quota
+                            $('#qt_id').val('');
+                            $('#quota').val('');
                         }
                     });
                 });
 
+                $('#b_time').on('change', function() {
+                    // ดึง qt_id และ quota จาก option ที่เลือก
+                    var selectedOption = $(this).find('option:selected');
+                    var qt_id = selectedOption.val();
+                    var qt_time = selectedOption.data('qt_time');
+                    var quota = selectedOption.data('quota');
 
-
-
-                function toggleSubmitButton() {
-                    if (isUsernameValid && isIDCardValid) {
-                        $('button[type="submit"]').prop('disabled', false);
-                    } else {
-                        $('button[type="submit"]').prop('disabled', true);
-                    }
-                }
-
-                function validateInput(value) {
-                    value = value.trim();
-                    return value !== "" && value.indexOf(' ') === -1;
-                }
+                    // กำหนดค่าให้กับ input qt_id และ quota
+                    $('#qt_id').val(qt_id);
+                    $('#quota').val(quota);
+                    $('#b_time_hidden').val(qt_time);
+                });
 
                 // ตรวจสอบ Username
                 $('#check_user').click(function() {
@@ -158,11 +146,23 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     });
                 });
 
+                function toggleSubmitButton() {
+                    if (isUsernameValid && isIDCardValid) {
+                        $('button[type="submit"]').prop('disabled', false);
+                    } else {
+                        $('button[type="submit"]').prop('disabled', true);
+                    }
+                }
+
+                function validateInput(value) {
+                    value = value.trim();
+                    return value !== "" && value.indexOf(' ') === -1;
+                }
+
                 // ปิดการใช้งานปุ่ม submit ในตอนเริ่มต้น
                 toggleSubmitButton();
             });
         </script>
-
     </head>
 
     <body>
@@ -179,9 +179,10 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     </div>
 
                     <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
-                    <input type="hidden" name="qt_id" id="qt_id" value="">
-                    <input type="hidden" name="quota" id="quota" value="">
-                    
+                    <input type="text" name="qt_id" id="qt_id" value="">
+                    <input type="text" name="quota" id="quota" value="">
+                    <input type="text" name="b_time_hidden" id="b_time_hidden" value="">
+
                 </div>
                 <div class="form-group row">
                     <label for="b_time" class="col-sm-2 col-form-label">เลือกเวลา</label>

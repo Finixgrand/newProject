@@ -7,7 +7,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $p_id = mysqli_real_escape_string($conn, $_POST['p_id']);
     $b_date = mysqli_real_escape_string($conn, $_POST['b_date']);
     $qt_id = mysqli_real_escape_string($conn, $_POST['qt_id']);
-    $b_time = mysqli_real_escape_string($conn, $_POST['b_time']);
+    $b_time_hidden = mysqli_real_escape_string($conn, $_POST['b_time_hidden']);
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $IDcardnumber = mysqli_real_escape_string($conn, $_POST['IDcardnumber']);
     $age = mysqli_real_escape_string($conn, $_POST['age']);
@@ -29,6 +29,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         echo "<script>alert('ไม่สามารถทำการจองได้เนื่องจากโควต้าการจองได้ถูกเต็มแล้ว'); window.location='../projectDetail.php?p_id=$p_id';</script>";
         exit();
     } else {
+
         $sql_customer = "INSERT INTO customer (name, IDcardnumber, age, address, tel, gender, u_name) 
                          VALUES ('$name', '$IDcardnumber', '$age', '$address', '$tel', '$gender', '$u_name')";
 
@@ -36,7 +37,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             $cus_id = mysqli_insert_id($conn);
 
             $sql_booking = "INSERT INTO booking (b_time, b_date, qt_id, u_name) 
-                            VALUES ('$b_time', '$b_date', '$qt_id', '$u_name')";
+                            VALUES ('$b_time_hidden', '$b_date', '$qt_id', '$u_name')";
 
             if (mysqli_query($conn, $sql_booking)) {
                 $sql_user = "INSERT INTO user (u_name, u_pass, u_type) VALUES ('$u_name', '$u_pass', 2)";
@@ -56,20 +57,20 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
     mysqli_close($conn);
 ?>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Result</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Booking Result</title>
+    </head>
 
-<body>
+    <body>
 
-</body>
+    </body>
 
-</html>
+    </html>
 <?php
 } else {
     echo "<script>alert('กรุณาเข้าสู่ระบบก่อน'); window.location='frm_login.php';</script>";
