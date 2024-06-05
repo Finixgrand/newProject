@@ -3,28 +3,28 @@ session_start();
 if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset($_SESSION["valid_utype"])) {
     include 'module/connect.php';
 
+    $p_id = $_GET['p_id'];
 
-$p_id = $_GET['p_id'];
+    // ตรวจสอบว่ามีการส่งค่าวันที่จากฟอร์มหรือไม่
+    if (isset($_POST['selected_date'])) {
+        $selected_date = $_POST['selected_date'];
+    } else {
+        $selected_date = null;
+    }
 
-// ตรวจสอบว่ามีการส่งค่าวันที่จากฟอร์มหรือไม่
-if (isset($_POST['selected_date'])) {
-    $selected_date = $_POST['selected_date'];
-} else {
-    $selected_date = null;
-}
+    $sql = "SELECT * FROM queue_table WHERE p_id = '$p_id'";
+    if ($selected_date) {
+        // แปลงค่าวันที่ให้เป็นฟอร์แมตที่ตรงกับในฐานข้อมูล
+        $selected_date_db = DateTime::createFromFormat('d/m/Y', $selected_date)->format('Y-m-d');
+        $sql .= " AND qt_date = '$selected_date_db'";
+    }
+    $sql .= " ORDER BY qt_date ASC, qt_time ASC";
 
-$sql = "SELECT * FROM queue_table WHERE p_id = '$p_id' ORDER BY qt_date ASC, qt_time ASC";
-if ($selected_date) {
-    // แปลงค่าวันที่ให้เป็นฟอร์แมตที่ตรงกับในฐานข้อมูล
-    $selected_date_db = DateTime::createFromFormat('d/m/Y', $selected_date)->format('Y-m-d');
-    $sql .= " AND qt_date = '$selected_date_db'";
-}
+    $result = mysqli_query($conn, $sql);
 
-$result = mysqli_query($conn, $sql);
-
-$sql2 = "SELECT p_name FROM program WHERE p_id = $p_id";
-$result2 = mysqli_query($conn, $sql2);
-$rs2 = mysqli_fetch_assoc($result2);
+    $sql2 = "SELECT p_name FROM program WHERE p_id = $p_id";
+    $result2 = mysqli_query($conn, $sql2);
+    $rs2 = mysqli_fetch_assoc($result2);
 ?>
 <!DOCTYPE html>
 <html lang="en">
