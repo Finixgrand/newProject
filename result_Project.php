@@ -18,7 +18,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $sql_count = "SELECT COUNT(booking.b_id) AS total FROM booking 
     JOIN queue_table ON booking.qt_id = queue_table.qt_id
     JOIN program ON queue_table.p_id = program.p_id
-    WHERE queue_table.p_id = $p_id";
+    WHERE queue_table.p_id = $p_id AND booking.b_status = '1'";
 
     $result2 = mysqli_query($conn, $sql_count);
     $rs2 = mysqli_fetch_array($result2);
