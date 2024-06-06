@@ -55,7 +55,7 @@ if ($cus_id > 0) {
         }
 
 $pdf = new FPDF('P', 'mm', 'A4');
-
+$pdf->SetMargins(10, 20, 10);
 
 $pdf->Addfont('THSarabun', '', 'THSarabun.php');
 $pdf->AddFont('THSarabun', 'B', 'THSarabun Bold.php');
@@ -64,10 +64,19 @@ $pdf->AddFont('THSarabun', 'B', 'THSarabun Bold.php');
 $pdf->AddPage();
 
 $pdf->SetFont('THSarabun', 'B', 24);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ใบประวัติผู้ใช้บริการ'), 0, 1, 'C');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', 'คลินิกแพทย์แผนไทย มหาวิทยาลัยราชภัฏเพชรบูรณ์'), 0, 0, 'C');
 
-$pdf->SetFont('THSarabun', '', 16);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'วันที่ : ' . date('d/m/Y')), 0, 1, 'R');
+$pdf->SetY($pdf->GetY() - 10);
+$pdf->SetFont('THSarabun', '', 14);
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', 'พิมพ์วันที่'), 0, 1, 'R');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', date('d/m/') . (date('Y')+543)) , 0, 1, 'R');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', ' เวลา '  . date('H:i น.', strtotime('+5 hours'))), 0, 1, 'R');
+
+$pdf->SetY($pdf->GetY() + 5);
+$pdf->SetFont('THSarabun', 'B', 20);
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ใบประวัติผู้ใช้บริการ'), 0, 1, 'C');
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(60, 10, iconv('UTF-8', 'TIS-620', 'ชื่อ - นามสกุล   ' . $name  ), 0, 0, 'L');
@@ -80,7 +89,9 @@ $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ที่อยู่ :     ' . $address ), 0, 1, 'L');
 
 $pdf->SetFont('THSarabun', '', 16);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'เบอร์โทร :     ' . $tel), 0, 1, 'L');
+$pdf->Cell(50, 10, iconv('UTF-8', 'TIS-620', 'เบอร์โทร : ' . $tel), 0, 0, 'L');
+$pdf->Cell(60, 10, iconv('UTF-8', 'TIS-620', 'วันที่ใช้บริการ : ______________' ), 0, 0, 'L');
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'เวลาที่ใช้บริการ : ______________' ), 0, 1, 'L');
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'อาการสำคัญ : _____________________________________________________________________'), 0, 1, 'L');
@@ -88,6 +99,7 @@ $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'อาการสำคัญ : __
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ประวัติการเจ็บป่วยในอดีต : ___________________________________________________________'), 0, 1, 'L');
 
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 $pdf->SetFont('THSarabun', 'B', 18);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ตรวจร่างกาย'), 0, 1, 'L');
 
@@ -170,6 +182,7 @@ $pdf->Cell(5, 5, '', 1, 0);
 $pdf->SetY($pdf->GetY() + 0);
 $pdf->SetX($pdf->GetX() + 60);
 $pdf->Cell(5, 5, '', 1, 1);
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'ผลการนวด : '), 0, 0, 'L');
@@ -186,9 +199,11 @@ $pdf->SetY($pdf->GetY() + 0);
 $pdf->SetX($pdf->GetX() + 90);
 $pdf->Cell(5, 5, '', 1, 1);
 
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'คำแนะนำการปฏิบัติหลังการนวด : _____________________________________________________  '), 0, 1, 'L');
 
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'การประเมินผู้ให้บริการ            '), 0, 0, 'L');
 $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', '                        ดีมาก'), 0, 0, 'L');
@@ -208,8 +223,11 @@ $pdf->SetY($pdf->GetY() + 0);
 $pdf->SetX($pdf->GetX() + 143);
 $pdf->Cell(5, 5, '', 1, 1);
 
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'ข้อเสนอแนะ : ____________________________________________________________________  '), 0, 1, 'L');
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
+$pdf->Cell(0, 3, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(30, 10, iconv('UTF-8', 'TIS-620', 'ลงชื่อ ___________________________ ผู้ให้บริการ '), 0, 0, 'L');

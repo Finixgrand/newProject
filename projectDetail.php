@@ -85,6 +85,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="text-end">
+                    <a href="./result_Project.php?p_id=<?php echo $p_id; ?>" class="btn btn-info">สรุปโครงการ</a> &nbsp; &nbsp; &nbsp;
             </div>
         </div>
 
@@ -180,7 +183,11 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                         </td>
                                         <td>
                                             <input type="hidden" name="b_id" value="<?php echo $rs2['b_id']; ?>">
-                                            <button type="button" onclick="printPage('<?php echo $rs2['cus_id']; ?>', '<?php echo $p_id; ?>', '<?php echo $rs['t_id']; ?>', '<?php echo $rs2['b_id']; ?>')">พิมพ์</button>
+                                            <?php if ($rs2['b_status'] == 0) { ?>
+                                                <button type="button" disabled onclick="printPage('<?php echo $rs2['cus_id']; ?>', '<?php echo $p_id; ?>', '<?php echo $rs['t_id']; ?>', '<?php echo $rs2['b_id']; ?>')">พิมพ์</button>
+                                            <?php } else { ?>
+                                                <button type="button" onclick="printPage('<?php echo $rs2['cus_id']; ?>', '<?php echo $p_id; ?>', '<?php echo $rs['t_id']; ?>', '<?php echo $rs2['b_id']; ?>')">พิมพ์</button>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?php endwhile; ?>
