@@ -15,7 +15,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $result = mysqli_query($conn, $sql)
         or die("Error in query: $sql" . mysqli_error($conn));
 
-    $sql_count = "SELECT COUNT(booking.b_id) AS total FROM booking 
+    $sql_count = "SELECT COUNT(booking.b_id) AS total, program.p_name FROM booking 
     JOIN queue_table ON booking.qt_id = queue_table.qt_id
     JOIN program ON queue_table.p_id = program.p_id
     WHERE queue_table.p_id = $p_id AND booking.b_status = '1'";
@@ -41,22 +41,25 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         ?>
 
         <h3>สรุปโครงการ</h3>
+        <h4> <?php echo $rs2['p_name'] ?> </h4>
         <main>
 
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                    <div class="text-end">
-                           รวมรายการทั้งสิ้น &nbsp; <?php echo $total; ?> รายการ
-                           <br>
+                        <div class="text-end">
+                            รวมรายการทั้งสิ้น &nbsp; <?php echo $total; ?> รายการ
+                            <br>
 
-                          รวมทั้งสิ้น <?php echo $hour = $total * 1.5 ?> ชั่วโมง
+                            รวมทั้งสิ้น <?php echo $hour = $total * 1 ?> ชั่วโมง
+                            <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
                         </div>
                         <br>
                         <div class="text-start">
                             <button class="btn btn-secondary" onclick="window.history.back();">กลับ</button>
-                    </div>
-                    <br>
+                            <button class="btn btn-primary" onclick="printReport('<?php echo $p_id; ?>')">พิมพ์</button>
+                        </div>
+                        <br>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -86,6 +89,15 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </div>
             </div>
 
+            <script>
+                function printReport(p_id) {
+                    var win = window.open('print_reportproject.php?p_id=' + p_id, '_blank');
+                    win.focus();
+                    win.onload = function() {
+                        win.print();
+                    }
+                }
+            </script>
         </main>
     </body>
 

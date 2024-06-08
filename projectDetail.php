@@ -164,7 +164,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                                 }
                                                 echo '</select>';
                                             } else {
-                                                $sql3 = "SELECT * FROM masseuse";
+                                                $sql3 = "SELECT * FROM masseuse WHERE ma_id = $rs2[ma_id]";
                                                 $result3 = mysqli_query($conn, $sql3);
                                                 $rs3 = mysqli_fetch_array($result3);
                                                 echo "$rs3[ma_name]";

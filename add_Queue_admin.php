@@ -94,7 +94,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     if (!validateInput(u_name)) {
                         $('#user_status').text("Username ห้ามมีช่องว่างที่ด้านหน้าและด้านหลัง หรือมีช่องว่างภายใน").css('color', 'red');
                         isUsernameValid = false;
-                        toggleSubmitButton();
                         return;
                     }
                     $.ajax({
@@ -112,7 +111,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                 $('#user_status').text("Username นี้สามารถใช้ได้").css('color', 'green');
                                 isUsernameValid = true;
                             }
-                            toggleSubmitButton();
                         }
                     });
                 });
@@ -123,7 +121,6 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     if (!validateInput(IDcardnumber)) {
                         $('#card_status').text("เลขประจำตัวประชาชนห้ามมีช่องว่างที่ด้านหน้าและด้านหลัง หรือมีช่องว่างภายใน").css('color', 'red');
                         isIDCardValid = false;
-                        toggleSubmitButton();
                         return;
                     }
                     $.ajax({
@@ -141,26 +138,23 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                 $('#card_status').text("เลขประจำตัวประชาชนนี้สามารถใช้ได้").css('color', 'green');
                                 isIDCardValid = true;
                             }
-                            toggleSubmitButton();
                         }
                     });
                 });
 
-                function toggleSubmitButton() {
-                    if (isUsernameValid && isIDCardValid) {
-                        $('button[type="submit"]').prop('disabled', false);
+                $('#submitBtn').click(function(event) {
+                    if (!isUsernameValid || !isIDCardValid) {
+                        alert('กรุณาตรวจสอบ Username และเลขประจำตัวประชาชนให้ถูกต้อง');
+                        event.preventDefault();
                     } else {
-                        $('button[type="submit"]').prop('disabled', true);
+                        // ทำงานปกติ
                     }
-                }
+                });
 
                 function validateInput(value) {
                     value = value.trim();
                     return value !== "" && value.indexOf(' ') === -1;
                 }
-
-                // ปิดการใช้งานปุ่ม submit ในตอนเริ่มต้น
-                toggleSubmitButton();
             });
         </script>
     </head>
@@ -179,9 +173,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     </div>
 
                     <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
-                    <input type="text" name="qt_id" id="qt_id" value="">
-                    <input type="text" name="quota" id="quota" value="">
-                    <input type="text" name="b_time_hidden" id="b_time_hidden" value="">
+                    <input type="hidden" name="qt_id" id="qt_id" value="">
+                    <input type="hidden" name="quota" id="quota" value="">
+                    <input type="hidden" name="b_time_hidden" id="b_time_hidden" value="">
 
                 </div>
                 <div class="form-group row">
@@ -276,7 +270,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="mb-3 row">
                     <div class="col-sm-10 offset-sm-2" align="center">
                         <a href="javascript:history.back()" class="btn btn-secondary">ย้อนกลับ</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="submit" class="btn btn-primary" disabled>ตกลง</button>
+                        <button id="submitBtn" type="submit" class="btn btn-primary">ตกลง</button>
                     </div>
                 </div>
             </form>

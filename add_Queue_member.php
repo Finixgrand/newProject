@@ -104,7 +104,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     if (!validateInput(u_name)) {
                         $('#user_status').text("Username ห้ามมีช่องว่างที่ด้านหน้าและด้านหลัง หรือมีช่องว่างภายใน").css('color', 'red');
                         isUsernameValid = false;
-                        toggleSubmitButton();
+                        
                         return;
                     }
                     $.ajax({
@@ -122,13 +122,20 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                                 $('#user_status').text("ไม่พบผู้ใช้งาน").css('color', 'red');
                                 isUsernameValid = false;
                             }
-                            toggleSubmitButton();
+                            
                         }
                     });
                 });
 
-                // ปิดการใช้งานปุ่ม submit ในตอนเริ่มต้น
-                toggleSubmitButton();
+                $('#submitBtn').click(function(event) {
+                    if (!isUsernameValid) {
+                        alert('กรุณาตรวจสอบ Username ให้ถูกต้อง');
+                        event.preventDefault();
+                    } else {
+                        // ทำงานปกติ
+                    }
+                });
+  
             });
         </script>
     </head>
@@ -178,7 +185,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <div class="text-center">
 
                         <a href="javascript:history.back()" class="btn btn-secondary">ย้อนกลับ</a>
-                        <button type="submit" class="btn btn-primary" disabled>ตกลง</button>
+                        <button id="submitBtn" type="submit" class="btn btn-primary">ตกลง</button>
                     </div>
                 </form>
             </div>
