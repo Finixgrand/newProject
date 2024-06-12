@@ -1,7 +1,7 @@
 <?php
 include 'connect.php';
 
-$username = $_POST['username'];
+$u_name = $_POST['u_name'];
 $password = $_POST['password'];
 $name = $_POST['name'];
 $gender = $_POST['gender'];
@@ -11,12 +11,12 @@ $address = $_POST['address'];
 $tel = $_POST['tel'];
 $user_type = 2;
 
-$username = mysqli_real_escape_string($conn, $username);
+$u_name = mysqli_real_escape_string($conn, $u_name);
 $password = mysqli_real_escape_string($conn, $password);
 $user_type = mysqli_real_escape_string($conn, $user_type);
 
 // ตรวจสอบว่ามี u_name ซ้ำหรือไม่
-$sql_check_username = "SELECT u_name FROM user WHERE u_name = '$username'";
+$sql_check_username = "SELECT u_name FROM user WHERE u_name = '$u_name'";
 $result = $conn->query($sql_check_username);
 
 if ($result->num_rows > 0) {
@@ -27,11 +27,11 @@ if ($result->num_rows > 0) {
     echo "</script>";
 } else {
     // ถ้า u_name ไม่ซ้ำ ให้ทำการแทรกข้อมูล
-    $sql_user = "INSERT INTO user (u_name, u_pass, u_type) VALUES ('$username', '$password', '$user_type')";
+    $sql_user = "INSERT INTO user (u_name, u_pass, u_type) VALUES ('$u_name', '$password', '$user_type')";
     if ($conn->query($sql_user) === TRUE) {
         // Insert ลงตาราง customer
         $sql_customer = "INSERT INTO customer (IDcardnumber, name, address, tel, age, gender, u_name) 
-                         VALUES ('$IDcardnumber', '$name', '$address', '$tel', '$age', '$gender', '$username')";
+                         VALUES ('$IDcardnumber', '$name', '$address', '$tel', '$age', '$gender', '$u_name')";
         if ($conn->query($sql_customer) === TRUE) {
             echo "<script language=\"javascript\">";
             echo "alert('บันทึกข้อมูลเรียบร้อยแล้ว');";

@@ -36,6 +36,11 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             <h4>ประวัติการใช้บริการ</h4>
         </div>
 
+        <div>
+        <a href="./cusHome.php" class="btn btn-secondary">< ย้อนกลับ</a>
+        </div>
+
+        <br>
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>

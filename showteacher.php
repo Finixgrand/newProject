@@ -22,7 +22,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
     <body>
         <?php include 'component/admin_nav.php'; ?>
-        <h2 class="mb-4">รายชื่ออาจารย์</h2>
+        <h3 class="mb-4">รายชื่ออาจารย์</h3>
 
         <main>
             <div class="table-responsive">

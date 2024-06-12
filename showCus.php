@@ -25,15 +25,13 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
 <body>
     <?php include 'component/admin_nav.php'; ?>
-
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="header bg-secondary text-white p-1 rounded mb-4">
-                    <h4>ข้อมูลผู้ใช้บริการ</h4>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-12">    
+                <h3>ข้อมูลผู้ใช้บริการ</h3>
         </div>
+        </div>
+    <div class="container mt-4">
+        
 
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -42,9 +40,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <button type="submit" class="btn btn-primary">ค้นหา</button>
                 </form>
             </div>
-            <div class="col-md-6 text-end">
+            <!-- <div class="col-md-6 text-end">
                 <a href="./addCus.php" class="btn btn-success"><u>เพิ่มผู้ใช้บริการ</u></a>
-            </div>
+            </div> -->
         </div>
 
         <div class="row">

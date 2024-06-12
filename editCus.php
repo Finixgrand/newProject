@@ -47,11 +47,11 @@ $rs = mysqli_fetch_array($result);
                 </tr>
                 <tr>
                     <td>อายุ</td>
-                    <td><input type="text" name="age" value="<?php echo "$rs[age]"; ?>"></td>
+                    <td><input type="number" name="age" value="<?php echo "$rs[age]"; ?>" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 2) || event.keyCode === 8"></td>
                 </tr>
                 <tr>
                     <td>เลขประจำตัวประชาชน</td>
-                    <td><input type="text" name="IDcardnumber" value="<?php echo "$rs[IDcardnumber]"; ?>"></td>
+                    <td><input type="number" name="IDcardnumber" value="<?php echo "$rs[IDcardnumber]"; ?>" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 13) || event.keyCode === 8"></td>
                 </tr>
                 <tr>
                     <td>ที่อยู่</td>
@@ -59,7 +59,7 @@ $rs = mysqli_fetch_array($result);
                 </tr>
                 <tr>
                     <td>เบอร์โทรศัพท์</td>
-                    <td><input type="text" name="tel" value="<?php echo "$rs[tel]"; ?>"></td>
+                    <td><input type="number" name="tel" value="<?php echo "$rs[tel]"; ?>" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8"></td>
                 </tr>
             </table>
 

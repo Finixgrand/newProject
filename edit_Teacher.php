@@ -39,7 +39,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                             </div>
                             <div class="mb-3">
                                 <label for="t_tel" class="form-label">เบอร์โทรศัพท์</label>
-                                <input type="text" class="form-control" id="t_tel" name="t_tel" value="<?php echo $rs['t_tel']; ?>" required>
+                                <input type="number" class="form-control" id="t_tel" name="t_tel" value="<?php echo $rs['t_tel']; ?>" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8">
                             </div>
                             <div class="d-flex justify-content-between">
                                 <a href="javascript:history.back()" class="btn btn-secondary">ย้อนกลับ</a>
