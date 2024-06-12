@@ -41,6 +41,12 @@ $pdf->AddPage();
 $pdf->SetFont('THSarabun', 'B', 24);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'คลินิกแพทย์แผนไทย มหาวิทยาลัยราชภัฏเพชรบูรณ์'), 0, 1, 'C');
 
+$pdf->SetY($pdf->GetY() - 18);
+$pdf->SetFont('THSarabun', '', 14);
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', 'พิมพ์วันที่'), 0, 1, 'R');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', date('d/m/') . (date('Y')+543)) , 0, 1, 'R');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', ' เวลา '  . date('H:i น.', strtotime('+5 hours'))), 0, 1, 'R');
+
 $pdf->SetFont('THSarabun', 'B', 20);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'รายงานโครงการ ' . $p_name), 0, 1, 'C');
 
