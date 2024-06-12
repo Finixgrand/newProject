@@ -40,8 +40,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         include 'component/admin_nav.php';
         ?>
 
-        <h3>สรุปโครงการ</h3>
-        <h4> <?php echo $rs2['p_name'] ?> </h4>
+        <h3 style="text-align: center;">สรุปโครงการ</h3>
+        <h4 style="text-align: center;"> <?php echo $rs2['p_name'] ?> </h4>
         <main>
 
             <div class="container">
