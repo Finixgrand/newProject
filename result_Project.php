@@ -12,10 +12,10 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
              WHERE queue_table.p_id = $p_id
              ORDER BY booking.b_date ASC , booking.b_time";
 
-    $result = mysqli_query($conn, $sql)
-        or die("Error in query: $sql" . mysqli_error($conn));
+    $result = mysqli_query($conn, $sql) or die("Error in query: $sql" . mysqli_error($conn));
+    $rs = mysqli_fetch_array($result);
 
-    $sql_count = "SELECT COUNT(booking.b_id) AS total, program.p_name FROM booking 
+    $sql_count = "SELECT COUNT(booking.b_id) AS total, program.p_name, program.p_start, program.p_end FROM booking 
     JOIN queue_table ON booking.qt_id = queue_table.qt_id
     JOIN program ON queue_table.p_id = program.p_id
     WHERE queue_table.p_id = $p_id AND booking.b_status = '1'";
@@ -42,6 +42,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
         <h3 style="text-align: center;">สรุปโครงการ</h3>
         <h4 style="text-align: center;"> <?php echo $rs2['p_name'] ?> </h4>
+        <h6 style="text-align: center;">วันที่เริ่ม <?php echo $rs2['p_start']; ?> วันที่สิ้นสุด <?php echo $rs2['p_end']; ?> </h6>
+
         <main>
 
             <div class="container">
