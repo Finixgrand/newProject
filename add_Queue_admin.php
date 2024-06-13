@@ -212,7 +212,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <label for="IDcardnumber" class="col-sm-2 col-form-label">เลขประจำตัวประชาชน</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" name="IDcardnumber" class="form-control" required>
+                            <input type="text" name="IDcardnumber" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 13) || event.keyCode === 8">
                             <button type="button" class="btn btn-secondary" id="check_card">ตรวจสอบ</button>
                         </div>
                         <div class="invalid-feedback">
@@ -233,7 +233,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="mb-3 row">
                     <label for="age" class="col-sm-2 col-form-label">อายุ</label>
                     <div class="col-sm-10">
-                        <input type="number" name="age" class="form-control" required>
+                        <input type="number" name="age" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 2) || event.keyCode === 8">
                         <div class="invalid-feedback">
                             กรุณากรอกอายุ
                         </div>
@@ -264,7 +264,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="mb-3 row">
                     <label for="tel" class="col-sm-2 col-form-label">เบอร์โทรศัพท์</label>
                     <div class="col-sm-10">
-                        <input type="text" name="tel" class="form-control">
+                        <input type="text" name="tel" class="form-control" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8" required>
                     </div>
                 </div>
                 <div class="mb-3 row">
