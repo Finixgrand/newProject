@@ -62,16 +62,12 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
         <div class="container mt-5">
             <h2 class="mb-4">แก้ไขข้อมูลผู้ใช้บริการ</h2>
-            <form action="module/editcus.php" method="post" class="needs-validation" novalidate>
-                <div class="mb-3">
-                    <label for="cus_id" class="form-label">รหัส</label>
-                    <input type="text" class="form-control" id="cus_id" value="<?php echo $rs['cus_id']; ?>" readonly>
-                    <input type="hidden" name="cus_id" value="<?php echo $rs['cus_id']; ?>">
-                </div>
+            <form action="module/editcus.php" method="post" class="needs-validation" novalidate>                              
                 <div class="mb-3">
                     <label for="u_name" class="form-label">Username</label>
                     <input type="text" class="form-control" id="u_name" value="<?php echo $rs['u_name']; ?>" readonly onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8">
                     <input type="hidden" name="u_name" value="<?php echo $rs['u_name']; ?>">
+                    <input type="hidden" name="cus_id" value="<?php echo $rs['cus_id']; ?>">
                 </div>
                 <div class="mb-3">
                     <label for="u_pass" class="form-label">Password</label>

@@ -114,26 +114,27 @@
             }
 
             // ตรวจสอบเบอร์โทรศัพท์
-        $('input[name="tel"]').on('input', function() {
-            var tel = $(this).val().trim();
-            if (tel.length === 10) {
-                $('#tel_status').text("").css('color', '');
-                isTelValid = true;
-            } else {
-                $('#tel_status').text("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก").css('color', 'red');
-                isTelValid = false;
-            }
-        });
+            $('input[name="tel"]').on('input', function() {
+                var tel = $(this).val().trim();
+                if (tel.length === 10) {
+                    $('#tel_status').text("").css('color', '');
+                    isTelValid = true;
+                } else {
+                    $('#tel_status').text("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก").css('color', 'red');
+                    isTelValid = false;
+                }
+            });
 
-        $('#submitBtn').click(function(event) {
-            if (!isTelValid) {
-                alert('กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
-                event.preventDefault();
-            } else {
-                // ทำงานปกติ
-            }
-        });
-        });
+            $('#submitBtn').click(function(event) {
+                if (!isTelValid) {
+                    alert('กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
+                    event.preventDefault();
+                } else {
+                    // ทำงานปกติ
+                }
+            });
+
+        });   
     </script>
 </head>
 
@@ -152,7 +153,7 @@
                                 <label for="u_name" class="col-sm-2 col-form-label"><b>Username</b></label>
                                 <div class="col-sm-12">
                                     <div class="input-group">
-                                        <input type="text" name="u_name" class="form-control" required>
+                                        <input type="text" name="u_name" class="form-control" required onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8">
                                         <button type="button" class="btn btn-secondary" id="check_user">ตรวจสอบ</button>
                                     </div>
                                     <div class="invalid-feedback">
@@ -218,6 +219,24 @@
             </div>
         </div>
     </div>
+    <script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
 </body>
 
 </html>

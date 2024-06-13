@@ -48,7 +48,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         </div>
 
         <div class="text-center mt-4">
-            <button onclick="window.history.back();" class="btn btn-secondary mr-2">กลับ</button>
+        <a href="cusHome.php" class="btn btn-secondary">กลับ</a>
             <button name="btn_Edit" class="btn btn-primary mr-2">แก้ไข</button>
         </div>
     </main>

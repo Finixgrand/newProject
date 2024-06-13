@@ -113,6 +113,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
             <div class="text-end">
                 <a href="add_Queue_admin.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary">จองคิว (ลูกค้าใหม่)</a>
                 <a href="add_Queue_member.php?p_id=<?php echo $p_id; ?>" class="btn btn-primary">จองคิว (ลูกค้าเก่า)</a>
+                <div class="text-start mr-2">
+            <a href="showProject.php" class="btn btn-secondary">กลับ</a>
+        </div>
             </div>
             <h5>รายการจอง</h5>
 
@@ -217,9 +220,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
         </div>
 
-        <div class="text-center my-4">
-            <a href="showProject.php" class="btn btn-secondary">กลับ</a>
-        </div>
+       
 
         <script>
             function printPage(cus_id, p_id, t_id, b_id) {

@@ -118,8 +118,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 // ตรวจสอบเลขประจำตัวประชาชน
                 $('#check_card').click(function() {
                     var IDcardnumber = $('input[name="IDcardnumber"]').val().trim();
-                    if (!validateInput(IDcardnumber)) {
-                        $('#card_status').text("เลขประจำตัวประชาชนห้ามมีช่องว่างที่ด้านหน้าและด้านหลัง หรือมีช่องว่างภายใน").css('color', 'red');
+                    if (!validateInput(IDcardnumber) || IDcardnumber.length !== 13) {
+                        $('#card_status').text("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก").css('color', 'red');
                         isIDCardValid = false;
                         return;
                     }
@@ -143,8 +143,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 });
 
                 $('#submitBtn').click(function(event) {
-                    if (!isUsernameValid || !isIDCardValid) {
-                        alert('กรุณาตรวจสอบ Username และเลขประจำตัวประชาชนให้ถูกต้อง');
+                    if (!isUsernameValid || !isIDCardValid || !isTelValid) {
+                        alert('กรุณาตรวจสอบข้อมูลให้ถูกต้อง');
                         event.preventDefault();
                     } else {
                         // ทำงานปกติ
@@ -155,7 +155,20 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     value = value.trim();
                     return value !== "" && value.indexOf(' ') === -1;
                 }
+
+                // ตรวจสอบเบอร์โทรศัพท์
+                $('input[name="tel"]').on('input', function() {
+                    var tel = $(this).val().trim();
+                    if (tel.length === 10) {
+                        $('#tel_status').text("").css('color', '');
+                        isTelValid = true;
+                    } else {
+                        $('#tel_status').text("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก").css('color', 'red');
+                        isTelValid = false;
+                    }
+                });
             });
+                
         </script>
     </head>
 
@@ -169,9 +182,8 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="form-group row">
                     <label for="b_date" class="col-sm-2 col-form-label">เลือกวันที่</label>
                     <div class="col-sm-10">
-                        <input type="text" name="b_date" id="b_date" class="form-control" autocomplete="off" readonly>
+                        <input type="text" name="b_date" id="b_date" class="form-control" autocomplete="off" readonly required>
                     </div>
-
                     <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
                     <input type="hidden" name="qt_id" id="qt_id" value="">
                     <input type="hidden" name="quota" id="quota" value="">
@@ -181,7 +193,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="form-group row">
                     <label for="b_time" class="col-sm-2 col-form-label">เลือกเวลา</label>
                     <div class="col-sm-10">
-                        <select name="b_time" id="b_time" class="form-control">
+                        <select name="b_time" id="b_time" class="form-control" required>
                             <option value="">โปรดเลือกวันที่ก่อน</option>
                         </select>
                     </div>
@@ -190,7 +202,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <label for="u_name" class="col-sm-2 col-form-label">Username</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" name="u_name" class="form-control" required>
+                            <input type="text" name="u_name" class="form-control" onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8" required>
                             <button type="button" class="btn btn-secondary" id="check_user">ตรวจสอบ</button>
                         </div>
                         <div class="invalid-feedback">
@@ -202,7 +214,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="mb-3 row">
                     <label for="u_pass" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" name="u_pass" class="form-control" required>
+                        <input type="password" name="u_pass" class="form-control" required required onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8">
                         <div class="invalid-feedback">
                             กรุณากรอก Password
                         </div>
@@ -212,7 +224,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <label for="IDcardnumber" class="col-sm-2 col-form-label">เลขประจำตัวประชาชน</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" name="IDcardnumber" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 13) || event.keyCode === 8">
+                            <input type="number" name="IDcardnumber" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 13) || event.keyCode === 8">
                             <button type="button" class="btn btn-secondary" id="check_card">ตรวจสอบ</button>
                         </div>
                         <div class="invalid-feedback">
@@ -233,7 +245,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="mb-3 row">
                     <label for="age" class="col-sm-2 col-form-label">อายุ</label>
                     <div class="col-sm-10">
-                        <input type="number" name="age" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 2) || event.keyCode === 8">
+                        <input type="number" name="age" class="form-control" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 2) || event.keyCode === 8" required>
                         <div class="invalid-feedback">
                             กรุณากรอกอายุ
                         </div>
@@ -264,7 +276,11 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <div class="mb-3 row">
                     <label for="tel" class="col-sm-2 col-form-label">เบอร์โทรศัพท์</label>
                     <div class="col-sm-10">
-                        <input type="text" name="tel" class="form-control" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8" required>
+                        <input type="number" name="tel" class="form-control" onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8" required>
+                        <div class="invalid-feedback">
+                            กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก
+                        </div>
+                        <span id="tel_status" class="mt-2 d-block"></span>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -275,6 +291,23 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </div>
             </form>
         </div>
+        <script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
     </body>
 
     </html>

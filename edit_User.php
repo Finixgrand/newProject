@@ -56,6 +56,21 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
+                                <td>
+                                    Username
+                                </td>
+                                <td>
+                                    <input type="text" name="u_name" value="<?php echo $rs['u_name']; ?>" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Password
+                                </td>
+                                <td>
+                                    <input type="text" name="u_pass" value="<?php echo $rs['u_pass']; ?>" onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8">
+                                </td>
+                            <tr>
                                 <td>ชื่อ - นามสกุล</td>
                                 <td>
                                     <input type="hidden" name="cus_id" value="<?php echo $rs['cus_id']; ?>">
