@@ -41,6 +41,9 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $p_start = $rs2['p_start'];
     $p_end = $rs2['p_end'];
 
+    $p_start_formatted = date("d/m/Y", strtotime($p_start));
+    $p_end_formatted = date("d/m/Y", strtotime($p_end));
+
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +86,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     <div class="container mt-5">
         <h3 class="text-center">สรุปโครงการ</h3>
         <h4 class="text-center"><?php echo $rs2['p_name']; ?></h4>
-        <h6 class="text-center">วันที่เริ่ม <?php echo $rs2['p_start']; ?> วันที่สิ้นสุด <?php echo $rs2['p_end']; ?></h6>
+        <h6 class="text-center">วันที่เริ่ม <?php echo $p_start_formatted; ?> วันที่สิ้นสุด <?php echo $p_end_formatted; ?></h6>
 
         <form class="d-flex justify-content-center mb-3" method="GET" action="">
             <input type="hidden" name="p_id" value="<?php echo $p_id; ?>">
