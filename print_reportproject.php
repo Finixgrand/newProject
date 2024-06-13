@@ -65,16 +65,18 @@ $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'คลินิกแพทย์�
 $pdf->SetY($pdf->GetY() - 18);
 $pdf->SetFont('THSarabun', '', 14);
 $pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', 'พิมพ์วันที่'), 0, 1, 'R');
-$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', date('d/m/') . (date('Y')+543)) , 0, 1, 'R');
-$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', ' เวลา '  . date('H:i น.', strtotime('+5 hours'))), 0, 1, 'R');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', date('d/m/') . (date('Y') + 543)), 0, 1, 'R');
+$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', ' เวลา ' . date('H:i น.', strtotime('+5 hours'))), 0, 1, 'R');
 
 $pdf->SetFont('THSarabun', 'B', 20);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'รายงานโครงการ ' . $p_name), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', '', 18);
-$start_date_formatted = date('d/m/', strtotime($start_date)) . (date('Y', strtotime($start_date)) + 543);
-$end_date_formatted = date('d/m/', strtotime($end_date)) . (date('Y', strtotime($end_date)) + 543);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', ' เริ่มต้น ' . $p_start . '  สิ้นสุด ' . $p_end), 0, 1, 'C');
+$p_start_formatted = date('d/m/Y', strtotime($p_start));
+$p_end_formatted = date('d/m/Y', strtotime($p_end));
+$start_date_formatted = $start_date ? date('d/m/', strtotime($start_date)) . (date('Y', strtotime($start_date)) + 543) : $p_start_formatted;
+$end_date_formatted = $end_date ? date('d/m/', strtotime($end_date)) . (date('Y', strtotime($end_date)) + 543) : $p_end_formatted;
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', ' เริ่มต้น ' . $p_start_formatted . '  สิ้นสุด ' . $p_end_formatted), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->MultiCell(0, 5, iconv('UTF-8', 'TIS-620', 'วันที่เลือก ' . $start_date_formatted . ' ถึงวันที่ ' . $end_date_formatted), 0, 'C');
