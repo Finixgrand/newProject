@@ -91,7 +91,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 <input type="text" class="form-control datepicker" name="start_date" placeholder="วันที่เริ่มต้น" value="<?php echo $start_date; ?>" required readonly>
                 <span class="input-group-text">ถึง</span>
                 <input type="text" class="form-control datepicker" name="end_date" placeholder="วันที่สิ้นสุด" value="<?php echo $end_date; ?>" required readonly>
-                <button type="submit" class="btn btn-primary">ค้นหา</button>
+                <button type="submit" class="btn btn-primary" onclick="return validateDates()">ค้นหา</button>
             </div>
         </form>
 
@@ -136,34 +136,58 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(document).ready(function(){
-            var p_start = "<?php echo $p_start; ?>";
-            var p_end = "<?php echo $p_end; ?>";
-            
-            $('.datepicker').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                yearRange: "-100:+10",
-                showAnim: "fadeIn",
-                minDate: new Date(p_start),
-                maxDate: new Date(p_end)
-            });
-        }); 
+    $(document).ready(function(){
+        var p_start = "<?php echo $p_start; ?>";
+        var p_end = "<?php echo $p_end; ?>";
+        
+        $('.datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            yearRange: "-100:+10",
+            showAnim: "fadeIn",
+            minDate: new Date(p_start),
+            maxDate: new Date(p_end)
+        });
+    }); 
 
-        function printReport(p_id, start_date, end_date) {
-            var url = 'print_reportproject.php?p_id=' + p_id;
-            if (start_date && end_date) {
-                url += '&start_date=' + start_date + '&end_date=' + end_date;
-            }
-            var win = window.open(url, '_blank');
-            win.focus();
-            win.onload = function() {
-                win.print();
-            }
+    function validateDates() {
+    var startDate = document.getElementsByName('start_date')[0].value;
+    var endDate = document.getElementsByName('end_date')[0].value;
+
+    if (startDate === "") {
+        alert("โปรดเลือกวันที่เริ่มต้น");
+        return false;
+    }
+
+    if (endDate === "") {
+        alert("โปรดเลือกวันที่สิ้นสุด");
+        return false;
+    }
+
+    if (startDate > endDate) {
+        alert("วันที่เริ่มต้นต้องน้อยกว่าหรือเท่ากับวันที่สิ้นสุด");
+        return false;
+    }
+
+    return true;
+    }
+
+    
+    function printReport(p_id, start_date, end_date) {
+        var url = 'print_reportproject.php?p_id=' + p_id;
+        if (start_date && end_date) {
+            url += '&start_date=' + start_date + '&end_date=' + end_date;
         }
-    </script>
+        var win = window.open(url, '_blank');
+        win.focus();
+        win.onload = function() {
+            win.print();
+        }
+    }
+</script>
+
 </body>
 
 </html>
