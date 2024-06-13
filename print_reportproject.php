@@ -10,6 +10,15 @@ $sql = "SELECT * FROM program WHERE p_id = '$p_id'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $p_name = $row['p_name'];
+$p_start = $row['p_start'];
+$p_end = $row['p_end'];
+
+// ตรวจสอบค่า $start_date และ $end_date และปรับรูปแบบตามความเหมาะสม
+if ($start_date && $end_date) {
+    // SQL query เพื่อดึงข้อมูลโดยใช้ start_date และ end_date
+} else {
+    // SQL query เพื่อดึงข้อมูลโดยไม่ใช้ start_date และ end_date
+}
 
 if ($start_date && $end_date) {
     $sql2 = "SELECT * FROM booking 
@@ -63,14 +72,13 @@ $pdf->SetFont('THSarabun', 'B', 20);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'รายงานโครงการ ' . $p_name), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', '', 18);
-$start_date = date('d/m/', strtotime($rscnt['p_start'])) . (date('Y', strtotime($rscnt['p_start'])) + 543);
-$end_date = date('d/m/', strtotime($rscnt['p_end'])) . (date('Y', strtotime($rscnt['p_end'])) + 543);
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', ' เริ่มต้น ' . $start_date . '  สิ้นสุด ' . $end_date), 0, 1, 'C');
+$start_date_formatted = date('d/m/', strtotime($start_date)) . (date('Y', strtotime($start_date)) + 543);
+$end_date_formatted = date('d/m/', strtotime($end_date)) . (date('Y', strtotime($end_date)) + 543);
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', ' เริ่มต้น ' . $p_start . '  สิ้นสุด ' . $p_end), 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', '', 16);
-$pdf->Cell(95, 10, iconv('UTF-8', 'TIS-620', ' วันที่ ' . date('d/m/') . (date('Y') + 543)), 0, 0, 'R');
-$pdf->Cell(25, 10, iconv('UTF-8', 'TIS-620', '  เวลา '  . date('H:i น.', strtotime('+5 hours'))), 0, 1, 'R');
-$pdf->Cell(0, 5, iconv('UTF-8', 'TIS-620', ' '), 0, 1, 'C');
+$pdf->MultiCell(0, 5, iconv('UTF-8', 'TIS-620', 'วันที่เลือก ' . $start_date_formatted . ' ถึงวันที่ ' . $end_date_formatted), 0, 'C');
+$pdf->Cell(0, 5, '', 0, 1, 'C');
 
 $pdf->SetFont('THSarabun', 'B', 16);
 $pdf->Cell(15, 10, iconv('UTF-8', 'TIS-620', 'ลำดับ'), 1, 0, 'C');
