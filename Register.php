@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สมัครสมาชิก</title>
-   <!-- Scripts -->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
@@ -37,14 +37,14 @@
             width: 100%;
             margin-top: 15px;
         }
-        
-        
     </style>
 
     <script>
         $(document).ready(function() {
             let isUsernameValid = false;
             let isIDCardValid = false;
+            let isTelValid = false;
+
             // ตรวจสอบ Username
             $('#check_user').click(function() {
                 var u_name = $('input[name="u_name"]').val().trim();
@@ -75,8 +75,8 @@
             // ตรวจสอบเลขประจำตัวประชาชน
             $('#check_card').click(function() {
                 var IDcardnumber = $('input[name="IDcardnumber"]').val().trim();
-                if (!validateInput(IDcardnumber)) {
-                    $('#card_status').text("เลขประจำตัวประชาชนห้ามมีช่องว่างที่ด้านหน้าและด้านหลัง หรือมีช่องว่างภายใน").css('color', 'red');
+                if (!validateInput(IDcardnumber) || IDcardnumber.length !== 13) {
+                    $('#card_status').text("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก").css('color', 'red');
                     isIDCardValid = false;
                     return;
                 }
@@ -101,7 +101,7 @@
 
             $('#submitBtn').click(function(event) {
                 if (!isUsernameValid || !isIDCardValid) {
-                    alert('กรุณาตรวจสอบ Username และเลขประจำตัวประชาชนให้ถูกต้อง');
+                    alert('กรุณาตรวจสอบกรอกข้อมูลให้ครบ');
                     event.preventDefault();
                 } else {
                     // ทำงานปกติ
@@ -112,6 +112,27 @@
                 value = value.trim();
                 return value !== "" && value.indexOf(' ') === -1;
             }
+
+            // ตรวจสอบเบอร์โทรศัพท์
+        $('input[name="tel"]').on('input', function() {
+            var tel = $(this).val().trim();
+            if (tel.length === 10) {
+                $('#tel_status').text("").css('color', '');
+                isTelValid = true;
+            } else {
+                $('#tel_status').text("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก").css('color', 'red');
+                isTelValid = false;
+            }
+        });
+
+        $('#submitBtn').click(function(event) {
+            if (!isTelValid) {
+                alert('กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก');
+                event.preventDefault();
+            } else {
+                // ทำงานปกติ
+            }
+        });
         });
     </script>
 </head>
@@ -143,7 +164,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="form-label">รหัสผ่าน</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password" required onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8">
                             </div>
                             <div class="form-group">
                                 <label for="name" class="form-label">ชื่อ - นามสกุล</label>
@@ -171,22 +192,26 @@
                                         <input type="number" name="IDcardnumber" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 13) || event.keyCode === 8">
                                         <button type="button" class="btn btn-secondary" id="check_card">ตรวจสอบ</button>
                                     </div>
-                                        <div class="invalid-feedback">
-                                            กรุณากรอกเลขประจำตัวประชาชน
-                                        </div>
-                                        <span id="card_status" class="mt-2 d-block"></span>
+                                    <div class="invalid-feedback">
+                                        กรุณากรอกเลขประจำตัวประชาชน
                                     </div>
+                                    <span id="card_status" class="mt-2 d-block"></span>
                                 </div>
-                                    <div class="form-group">
-                                        <label for="address" class="form-label">ที่อยู่</label>
-                                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tel" class="form-label">เบอร์โทรศัพท์</label>
-                                        <input type="number" name="tel" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8">
-                                    </div>
-                                    <button id="submitBtn" type="submit" class="btn btn-primary btn-custom">สมัครสมาชิก</button>
-                                    <a href="javascript:history.back()" class="btn btn-secondary btn-custom">ยกเลิก</a>
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="form-label">ที่อยู่</label>
+                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="tel" class="form-label">เบอร์โทรศัพท์</label>
+                                <input type="number" name="tel" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8">
+                                <div class="invalid-feedback">
+                                    กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก
+                                </div>
+                                <span id="tel_status" class="mt-2 d-block"></span>
+                            </div>
+                            <button id="submitBtn" type="submit" class="btn btn-primary btn-custom">สมัครสมาชิก</button>
+                            <a href="javascript:history.back()" class="btn btn-secondary btn-custom">ยกเลิก</a>
                         </form>
                     </div>
                 </div>

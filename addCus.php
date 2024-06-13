@@ -41,11 +41,11 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                             </div>
                             <div class="mb-3">
                                 <label for="age" class="form-label">อายุ</label>
-                                <input type="number" class="form-control" id="age" name="age" required>
+                                <input type="number" class="form-control" id="age" name="age" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 2) || event.keyCode === 8">
                             </div>
                             <div class="mb-3">
                                 <label for="IDcardnumber" class="form-label">เลขประจำตัวประชาชน</label>
-                                <input type="text" class="form-control" id="IDcardnumber" name="IDcardnumber" required>
+                                <input type="text" class="form-control" id="IDcardnumber" name="IDcardnumber" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 13) || event.keyCode === 8">
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">ที่อยู่</label>
@@ -53,7 +53,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                             </div>
                             <div class="mb-3">
                                 <label for="tel" class="form-label">เบอร์โทรศัพท์</label>
-                                <input type="text" class="form-control" id="tel" name="tel" required>
+                                <input type="text" class="form-control" id="tel" name="tel" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8">
                             </div>
                             <div class="d-flex justify-content-between">
                                 <a href="javascript:history.back()" class="btn btn-secondary">ยกเลิก</a>
