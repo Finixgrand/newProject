@@ -23,6 +23,7 @@ $b_result = mysqli_query($conn, $b_sql);
 $b_row = mysqli_fetch_assoc($b_result);
 $mass = $b_row['ma_name'];
 
+
 $sql2 = "SELECT booking.*, customer.name, customer.age, customer.cus_id FROM booking 
 JOIN customer ON booking.u_name = customer.u_name
 JOIN queue_table ON booking.qt_id = queue_table.qt_id
@@ -30,9 +31,10 @@ WHERE queue_table.p_id = $p_id";
 
 if ($cus_id > 0) {
     // Query เพื่อดึงข้อมูลของลูกค้าที่ต้องการพิมพ์
-    $sql = "SELECT * FROM user 
+    $sql = "SELECT user.*, customer.name, customer.age, customer.gender, customer.address, customer.tel, booking.b_date, booking.b_time FROM user 
     JOIN customer ON user.u_name = customer.u_name
-    WHERE cus_id = $cus_id";
+    JOIN booking ON customer.u_name = booking.u_name
+    WHERE customer.cus_id = $cus_id and booking.b_id = $b_id"; 
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -43,6 +45,7 @@ if ($cus_id > 0) {
         $age = $row['age'];
         $gender = $row['gender'];
         $s_name = isset($row['s_name']) ? $row['s_name'] : 'ไม่มีข้อมูล';
+        $b_date = isset($row['b_date']) ? date('d/m/Y', strtotime($row['b_date'])) : 'ไม่มีข้อมูล';
         $b_time = isset($row['b_time']) ? $row['b_time'] : 'ไม่มีข้อมูล';
         $address = isset($row['address']) ? $row['address'] : 'ไม่มีข้อมูล';
         $tel = isset($row['tel']) ? $row['tel'] : 'ไม่มีข้อมูล';
@@ -93,8 +96,8 @@ $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'ที่อยู่ :     ' . $ad
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(50, 10, iconv('UTF-8', 'TIS-620', 'เบอร์โทร : ' . $tel), 0, 0, 'L');
-$pdf->Cell(60, 10, iconv('UTF-8', 'TIS-620', 'วันที่ใช้บริการ : . $b_date' ), 0, 0, 'L');
-$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'เวลาที่ใช้บริการ : . $b_time' ), 0, 1, 'L');
+$pdf->Cell(60, 10, iconv('UTF-8', 'TIS-620', 'วันที่ใช้บริการ : ' . $b_date), 0, 0, 'L');
+$pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'เวลาที่ใช้บริการ : ' . $b_time), 0, 1, 'L');
 
 $pdf->SetFont('THSarabun', '', 16);
 $pdf->Cell(0, 10, iconv('UTF-8', 'TIS-620', 'อาการสำคัญ : _____________________________________________________________________'), 0, 1, 'L');
