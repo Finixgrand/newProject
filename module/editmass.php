@@ -7,12 +7,12 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $ma_name = $_POST['ma_name'];
     $ma_gender = $_POST['ma_gender'];
     $ma_age = $_POST['ma_age'];
-    $ma_id_card = $_POST['ma_id_card'];
+    $ma_card = $_POST['ma_card'];
     $ma_address = $_POST['ma_address'];
     $ma_tel = $_POST['ma_tel'];
 
     $sql = "UPDATE masseuse SET ma_name = '$ma_name', ma_gender = '$ma_gender', 
-    ma_age = '$ma_age', ma_card = '$ma_id_card', ma_address = '$ma_address', 
+    ma_age = '$ma_age', ma_card = '$ma_card', ma_address = '$ma_address', 
     ma_tel = '$ma_tel' WHERE ma_id = '$ma_id'";
 
     $row = mysqli_query($conn, $sql)

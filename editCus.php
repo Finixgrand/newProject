@@ -19,41 +19,70 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             $(document).ready(function() {
-                let isIDCardValid = false;
-                let isTelValid = false;
-               // ตรวจสอบเลขประจำตัวประชาชน
-            $('#check_card').click(function() {
-                var IDcardnumber = $('input[name="IDcardnumber"]').val().trim();
-                if (!validateInput(IDcardnumber) || IDcardnumber.length !== 13) {
-                    $('#card_status').text("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก").css('color', 'red');
-                    isIDCardValid = false;
-                    return;
-                }
-                $.ajax({
-                    url: 'check_card.php',
-                    type: 'post',
-                    data: {
-                        IDcardnumber: IDcardnumber
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.status == "exists") {
-                            $('#card_status').text("เลขประจำตัวประชาชนนี้มีอยู่แล้ว").css('color', 'red');
-                            isIDCardValid = false;
-                        } else {
-                            $('#card_status').text("เลขประจำตัวประชาชนนี้สามารถใช้ได้").css('color', 'green');
-                            isIDCardValid = true;
+                let isIDCardValid = true; // Set as true initially because it's the current valid value
+                let isTelValid = true; // Set as true initially because it's the current valid value
+                const originalIDCard = "<?php echo $rs['IDcardnumber']; ?>";
+                const originalTel = "<?php echo $rs['tel']; ?>";
+                
+                // ตรวจสอบเลขประจำตัวประชาชน
+                $('#check_card').click(function() {
+                    var IDcardnumber = $('input[name="IDcardnumber"]').val().trim();
+                    if (!validateInput(IDcardnumber) || IDcardnumber.length !== 13) {
+                        $('#card_status').text("กรุณากรอกเลขบัตรประชาชนให้ครบ 13 หลัก").css('color', 'red');
+                        isIDCardValid = false;
+                        return;
+                    }
+                    if (IDcardnumber === originalIDCard) {
+                        $('#card_status').text("เลขประจำตัวประชาชนนี้สามารถใช้ได้").css('color', 'green');
+                        isIDCardValid = true;
+                        return;
+                    }
+                    $.ajax({
+                        url: 'check_card.php',
+                        type: 'post',
+                        data: { IDcardnumber: IDcardnumber },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status == "exists") {
+                                $('#card_status').text("เลขประจำตัวประชาชนนี้มีอยู่แล้ว").css('color', 'red');
+                                isIDCardValid = false;
+                            } else {
+                                $('#card_status').text("เลขประจำตัวประชาชนนี้สามารถใช้ได้").css('color', 'green');
+                                isIDCardValid = true;
+                            }
                         }
+                    });
+                });
+
+                // ตรวจสอบเบอร์โทรศัพท์
+                $('input[name="tel"]').on('input', function() {
+                    var tel = $(this).val().trim();
+                    if (tel === originalTel) {
+                        $('#tel_status').text("").css('color', '');
+                        isTelValid = true;
+                        return;
+                    }
+                    if (tel.length === 10) {
+                        $('#tel_status').text("").css('color', '');
+                        isTelValid = true;
+                    } else {
+                        $('#tel_status').text("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก").css('color', 'red');
+                        isTelValid = false;
                     }
                 });
-            });
 
                 $('#submitBtn').click(function(event) {
-                    if (!isIDCardValid|| !isTelValid) {
-                        alert('กรุณาตรวจสอบเลขประจำตัวประชาชนให้ถูกต้อง');
+                    if (!isIDCardValid || !isTelValid) {
+                        alert('กรุณาตรวจสอบข้อมูลให้ถูกต้อง');
                         event.preventDefault();
                     }
                 });
+
+                function validateInput(input) {
+                    var re = /^\d+$/;
+                    return re.test(input);
+                }
+            });
         </script>
     </head>
 
@@ -62,7 +91,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
 
         <div class="container mt-5">
             <h2 class="mb-4">แก้ไขข้อมูลผู้ใช้บริการ</h2>
-            <form action="module/editcus.php" method="post" class="needs-validation" novalidate>                              
+            <form action="module/editcus.php" method="post" class="needs-validation" novalidate>
                 <div class="mb-3">
                     <label for="u_name" class="form-label">Username</label>
                     <input type="text" class="form-control" id="u_name" value="<?php echo $rs['u_name']; ?>" readonly onkeydown="javascript: return (this.value.length < 15) || event.keyCode === 8">
@@ -105,7 +134,7 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </div>
                 <div class="form-group">
                     <label for="tel" class="form-label">เบอร์โทรศัพท์</label>
-                    <input type="number" name="tel" class="form-control" id="tel" value="<?php echo $rs['tel']; ?>" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8">
+                    <input type="number" name="tel" class="form-control" required onkeydown="javascript: return (event.keyCode !== 69 && this.value.length < 10) || event.keyCode === 8" value="<?php echo $rs['tel']; ?>">
                     <div class="invalid-feedback">
                         กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก
                     </div>
@@ -117,6 +146,24 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
                 </div>
             </form>
         </div>
+
+        <script>
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     </body>
 
     </html>

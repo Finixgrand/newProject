@@ -6,12 +6,12 @@ if (isset($_SESSION["valid_uname"]) && isset($_SESSION["valid_upass"]) && isset(
     $name = $_POST['name'];
     $gender = $_POST['gender'];
     $age = $_POST['age'];
-    $id_card = $_POST['id_card'];
+    $IDcardnumber = $_POST['IDcardnumber'];
     $address = $_POST['address'];
     $tel = $_POST['tel'];
 
     $sql = "INSERT INTO masseuse (ma_name, ma_gender, ma_age, ma_card, ma_address, ma_tel) 
-            VALUES ('$name', '$gender', '$age', '$id_card', '$address', '$tel')";
+            VALUES ('$name', '$gender', '$age', '$IDcardnumber', '$address', '$tel')";
 
     mysqli_query($conn, $sql)
         or die("Error in query: $sql " . mysqli_error($conn));
